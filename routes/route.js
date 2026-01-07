@@ -20,7 +20,12 @@ route.post('/login', express.urlencoded({ extended: true }), (req, res) => {
   if (user) {
     req.session.user = user;
     // Set persistent cookie for Vercel
-    res.cookie('auth_token', JSON.stringify(user), { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
+    res.cookie('auth_token', JSON.stringify(user), {
+      maxAge: 24 * 60 * 60 * 1000,
+      httpOnly: true,
+      secure: true, // Required for Vercel HTTPS
+      sameSite: 'lax'
+    });
     res.redirect(getHomePageForRole(user.role));
   } else {
     res.render('auth-login', { title: 'Login', layout: false, error: 'Invalid username or password' });
