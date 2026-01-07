@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Check-in Scanner | Conference</title>
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link href="/css/app.min.css" rel="stylesheet" type="text/css">
+    <link href="/css/icons.min.css" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        /* ========== SCREENS ========== */
+        .screen {
+            display: none;
+            min-height: 100vh;
+            flex-direction: column;
+            color: white;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* ========== EVENT SELECTION ========== */
+        .selection-screen {
+            padding: 1.5rem;
+        }
+
+        .selection-header {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .selection-header h1 {
+            font-size: 1.4rem;
+            margin: 0 0 0.5rem 0;
+        }
+
+        .selection-header p {
+            opacity: 0.7;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .selection-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .selection-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 1.25rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .selection-card:hover,
+        .selection-card:active {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #3e60d5;
+            transform: scale(1.02);
+        }
+
+        .selection-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .selection-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .selection-card .badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        .badge-primary {
+            background: rgba(62, 96, 213, 0.5);
+        }
+
+        .badge-success {
+            background: rgba(10, 207, 151, 0.5);
+        }
+
+        .badge-warning {
+            background: rgba(255, 188, 0, 0.5);
+            color: #1a1a2e;
+        }
+
+        .badge-info {
+            background: rgba(80, 195, 230, 0.5);
+        }
+
+        .selection-card .info {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .selection-card .info span {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .selection-card .stats {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .selection-card .stat {
+            flex: 1;
+            text-align: center;
+        }
+
+        .selection-card .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .selection-card .stat-label {
+            font-size: 0.65rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+
+        .stat-checked {
+            color: #0acf97;
+        }
+
+        .stat-pending {
+            color: #ffbc00;
+        }
+
+        /* Station Cards */
+        .station-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .station-card .station-icon {
+            font-size: 3rem;
+            opacity: 0.15;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .station-card.main {
+            border-left: 4px solid #3e60d5;
+        }
+
+        .station-card.workshop {
+            border-left: 4px solid #0acf97;
+        }
+
+        .station-card.dinner {
+            border-left: 4px solid #fa5c7c;
+        }
+
+        .btn-back-link {
+            display: block;
+            text-align: center;
+            padding: 1rem;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            margin-top: 0.5rem;
+        }
+
+        /* Current Selection Breadcrumb */
+        .breadcrumb-bar {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .breadcrumb-bar .divider {
+            opacity: 0.5;
+        }
+
+        .breadcrumb-bar .current {
+            font-weight: 600;
+        }
+
+        /* ========== SCANNER SCREEN ========== */
+        .app-header {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .app-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .event-badge {
+            font-size: 0.7rem;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+        }
+
+        .station-banner {
+            padding: 0.75rem 1rem;
+            text-align: center;
+        }
+
+        .station-banner.main-station {
+            background: linear-gradient(135deg, #3e60d5 0%, #6366f1 100%);
+        }
+
+        .station-banner.workshop-station {
+            background: linear-gradient(135deg, #0acf97 0%, #059669 100%);
+        }
+
+        .station-banner.dinner-station {
+            background: linear-gradient(135deg, #fa5c7c 0%, #dc3545 100%);
+        }
+
+        .station-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .station-desc {
+            font-size: 0.75rem;
+            opacity: 0.9;
+            margin: 0.25rem 0 0 0;
+        }
+
+        .btn-change {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            margin-left: 0.5rem;
+            cursor: pointer;
+        }
+
+        .stats-bar {
+            display: flex;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.5rem;
+            gap: 0.4rem;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 0.4rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .stat-item .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .stat-item .stat-label {
+            font-size: 0.6rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .stat-item.stat-success .stat-value {
+            color: #0acf97;
+        }
+
+        .stat-item.stat-pending .stat-value {
+            color: #ffbc00;
+        }
+
+        .scanner-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .scan-frame {
+            width: 180px;
+            height: 180px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            background: rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .scan-frame::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border: 3px solid transparent;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #0acf97, #3e60d5, #fa5c7c, #ffbc00) border-box;
+            mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: borderRotate 3s linear infinite;
+        }
+
+        @keyframes borderRotate {
+            to {
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        .scan-icon {
+            font-size: 48px;
+            opacity: 0.5;
+        }
+
+        .scan-hint {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            width: 100%;
+            max-width: 260px;
+        }
+
+        .btn-scan {
+            padding: 0.875rem 1.25rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .btn-scan-success {
+            background: linear-gradient(135deg, #0acf97 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-scan-warning {
+            background: linear-gradient(135deg, #ffbc00 0%, #f59e0b 100%);
+            color: #1a1a2e;
+        }
+
+        .btn-scan-error {
+            background: linear-gradient(135deg, #fa5c7c 0%, #dc3545 100%);
+            color: white;
+        }
+
+        .manual-section {
+            padding: 0.875rem;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .manual-input-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .manual-input {
+            flex: 1;
+            padding: 0.75rem;
+            font-size: 0.95rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-align: center;
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+
+        .manual-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-check {
+            padding: 0.75rem 1rem;
+            background: #3e60d5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        /* Result Overlay */
+        .result-overlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .result-overlay.show {
+            display: flex;
+        }
+
+        .result-overlay.success {
+            background: rgba(10, 207, 151, 0.95);
+        }
+
+        .result-overlay.warning {
+            background: rgba(255, 188, 0, 0.95);
+        }
+
+        .result-overlay.error {
+            background: rgba(250, 92, 124, 0.95);
+        }
+
+        .result-overlay.no-access {
+            background: rgba(108, 117, 125, 0.95);
+        }
+
+        .result-content {
+            text-align: center;
+            padding: 1.5rem;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .result-icon {
+            font-size: 64px;
+            margin-bottom: 0.75rem;
+        }
+
+        .result-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid white;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-name {
+            font-size: 1.15rem;
+            font-weight: 600;
+        }
+
+        .result-ticket {
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 0.35rem 0.7rem;
+            border-radius: 20px;
+            margin-top: 0.4rem;
+            font-size: 0.85rem;
+        }
+
+        .result-code {
+            font-family: monospace;
+            font-size: 1rem;
+            margin-top: 0.6rem;
+            opacity: 0.8;
+        }
+
+        .btn-next {
+            margin-top: 1.25rem;
+            padding: 0.75rem 2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            border: 2px solid white;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .warning .result-title,
+        .warning .result-name {
+            color: #1a1a2e;
+        }
+
+        .warning .btn-next {
+            color: #1a1a2e;
+            border-color: #1a1a2e;
+        }
+
+        .btn-back {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ========== SCREEN 1: EVENT SELECTION ========== -->
+    <div class="screen selection-screen active" id="eventScreen">
+        <div class="selection-header">
+            <h1><i class="ti ti-calendar-event me-2"></i>เลือก Event</h1>
+            <p>เลือกงานที่ต้องการ Check-in</p>
+        </div>
+
+        <div class="selection-list" id="eventList">
+            <div class="selection-card" onclick="selectEvent(1, 'ACCP Annual Conference 2026', 'ACCP2026')">
+                <div class="selection-card-header">
+                    <h3>ACCP Annual Conference 2026</h3>
+                    <span class="badge badge-primary">ACCP2026</span>
+                </div>
+                <div class="info">
+                    <span><i class="ti ti-calendar"></i> 15-17 Mar 2026</span>
+                    <span><i class="ti ti-map-pin"></i> QSNCC</span>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value stat-checked">18</div>
+                        <div class="stat-label">Checked In</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value stat-pending">307</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">325</div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="selection-card" onclick="selectEvent(2, 'Medical Innovation Summit', 'MIS2026')">
+                <div class="selection-card-header">
+                    <h3>Medical Innovation Summit</h3>
+                    <span class="badge badge-info">MIS2026</span>
+                </div>
+                <div class="info">
+                    <span><i class="ti ti-calendar"></i> 20-22 Apr 2026</span>
+                    <span><i class="ti ti-map-pin"></i> QSNCC</span>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value stat-checked">5</div>
+                        <div class="stat-label">Checked In</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value stat-pending">45</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">50</div>
+                        <div class="stat-label">Total</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <a href="/checkin-scanner" class="btn-back-link"><i class="ti ti-arrow-left me-1"></i> กลับหน้า Admin</a>
+    </div>
+
+    <!-- ========== SCREEN 2: STATION SELECTION ========== -->
+    <div class="screen selection-screen" id="stationScreen">
+        <div class="breadcrumb-bar">
+            <span id="breadcrumbEvent">ACCP 2026</span>
+            <span class="divider">›</span>
+            <span class="current">เลือก Station</span>
+        </div>
+
+        <div class="selection-header">
+            <h1><i class="ti ti-building me-2"></i>เลือก Station</h1>
+            <p>เลือกจุด Check-in ที่คุณรับผิดชอบ</p>
+        </div>
+
+        <div class="selection-list" id="stationList">
+            <!-- Dynamic content -->
+        </div>
+
+        <a href="javascript:void(0)" onclick="backToEvents()" class="btn-back-link"><i
+                class="ti ti-arrow-left me-1"></i> เปลี่ยน Event</a>
+    </div>
+
+    <!-- ========== SCREEN 3: SCANNER ========== -->
+    <div class="screen" id="scannerScreen">
+        <div class="app-header">
+            <button class="btn-back" onclick="backToStations()"><i class="ti ti-arrow-left"></i></button>
+            <h1 class="app-title"><i class="ti ti-scan me-2"></i>Check-in</h1>
+            <span class="event-badge" id="scannerEventBadge">ACCP2026</span>
+        </div>
+
+        <div class="station-banner main-station" id="stationBanner">
+            <p class="station-name" id="stationName">Main Conference</p>
+            <p class="station-desc" id="stationDesc">ห้องประชุมหลัก</p>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item stat-success">
+                <div class="stat-value" id="statCheckedIn">0</div>
+                <div class="stat-label">Checked In</div>
+            </div>
+            <div class="stat-item stat-pending">
+                <div class="stat-value" id="statPending">325</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="statPercent">0%</div>
+                <div class="stat-label">Complete</div>
+            </div>
+        </div>
+
+        <div class="scanner-area">
+            <div class="scan-frame"><i class="ti ti-scan scan-icon"></i></div>
+            <p class="scan-hint">กดปุ่มเพื่อจำลองการ Scan</p>
+            <div class="action-buttons">
+                <button class="btn-scan btn-scan-success" onclick="simulateScan('success')"><i class="ti ti-check"></i>
+                    Scan ผ่าน</button>
+                <button class="btn-scan btn-scan-warning" onclick="simulateScan('duplicate')"><i
+                        class="ti ti-alert-triangle"></i> เช็คอินแล้ว</button>
+                <button class="btn-scan btn-scan-error" onclick="simulateScan('no-access')"><i class="ti ti-lock"></i>
+                    ไม่มีสิทธิ์เข้า</button>
+            </div>
+        </div>
+
+        <div class="manual-section">
+            <div class="manual-input-group">
+                <input type="text" class="manual-input" id="manualCode" placeholder="REG-XXX-000">
+                <button class="btn-check" onclick="manualCheckIn()"><i class="ti ti-check"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Overlay -->
+    <div class="result-overlay" id="resultOverlay">
+        <div class="result-content" id="resultContent"></div>
+    </div>
+
+    <script src="/js/vendor.min.js"></script>
+    <script>
+        // State
+        let currentEvent = null;
+        let currentStation = null;
+        let checkedInCount = 0;
+        let eligibleCount = 0;
+
+        // Events & Stations Data
+        const eventsData = {
+            1: {
+                name: 'ACCP Annual Conference 2026',
+                code: 'ACCP2026',
+                stations: [
+                    { id: 'main', name: 'Main Conference', desc: 'ห้องประชุมหลัก - ผู้ลงทะเบียนทุกคน', icon: 'ti-building', class: 'main', eligible: 325, checkedIn: 18 },
+                    { id: 'workshop', name: 'Workshop', desc: 'Workshop ส่วนเสริม - เฉพาะผู้ซื้อ Add-on', icon: 'ti-tool', class: 'workshop', eligible: 85, checkedIn: 5 },
+                    { id: 'dinner', name: 'Gala Dinner', desc: 'งานเลี้ยง - เฉพาะผู้ซื้อ Add-on', icon: 'ti-glass-full', class: 'dinner', eligible: 120, checkedIn: 0 }
+                ],
+                registrations: {
+                    'REG-ABC-001': { name: 'Dr. Somchai Jaidee', ticket: 'Full Pass + Workshop + Dinner', avatar: '/images/users/avatar-1.jpg', access: ['main', 'workshop', 'dinner'], checkedIn: {} },
+                    'REG-DEF-002': { name: 'Dr. Nattaporn Srisuk', ticket: 'Full Pass Only', avatar: '/images/users/avatar-2.jpg', access: ['main'], checkedIn: {} },
+                    'REG-GHI-003': { name: 'Dr. Wichai Tanaka', ticket: 'Full Pass + Dinner', avatar: '/images/users/avatar-3.jpg', access: ['main', 'dinner'], checkedIn: {} }
+                }
+            },
+            2: {
+                name: 'Medical Innovation Summit',
+                code: 'MIS2026',
+                stations: [
+                    { id: 'main', name: 'Main Hall', desc: 'ห้องประชุมหลัก', icon: 'ti-building', class: 'main', eligible: 50, checkedIn: 5 }
+                ],
+                registrations: {
+                    'REG-MIS-001': { name: 'Supaporn Chai', ticket: 'Standard', avatar: '/images/users/avatar-4.jpg', access: ['main'], checkedIn: {} },
+                    'REG-MIS-002': { name: 'Piyapong Suwannee', ticket: 'VIP', avatar: '/images/users/avatar-5.jpg', access: ['main'], checkedIn: {} }
+                }
+            }
+        };
+
+        let codeIndex = 0;
+
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function selectEvent(eventId, eventName, eventCode) {
+            currentEvent = eventsData[eventId];
+            document.getElementById('breadcrumbEvent').textContent = eventName;
+
+            // Build station list
+            const stationList = document.getElementById('stationList');
+            stationList.innerHTML = currentEvent.stations.map(station => `
+                <div class="selection-card station-card ${station.class}" onclick="selectStation('${station.id}')">
+                    <i class="ti ${station.icon} station-icon"></i>
+                    <div class="selection-card-header">
+                        <h3>${station.name}</h3>
+                        <span class="badge badge-${station.class === 'main' ? 'primary' : station.class === 'workshop' ? 'success' : 'warning'}">${station.eligible} คน</span>
+                    </div>
+                    <div class="info"><span>${station.desc}</span></div>
+                    <div class="stats">
+                        <div class="stat"><div class="stat-value stat-checked">${station.checkedIn}</div><div class="stat-label">Checked In</div></div>
+                        <div class="stat"><div class="stat-value stat-pending">${station.eligible - station.checkedIn}</div><div class="stat-label">Pending</div></div>
+                    </div>
+                </div>
+            `).join('');
+
+            showScreen('stationScreen');
+        }
+
+        function selectStation(stationId) {
+            currentStation = currentEvent.stations.find(s => s.id === stationId);
+            checkedInCount = currentStation.checkedIn;
+            eligibleCount = currentStation.eligible;
+            codeIndex = 0;
+
+            // Update UI
+            document.getElementById('scannerEventBadge').textContent = currentEvent.code;
+            document.getElementById('stationName').textContent = currentStation.name;
+            document.getElementById('stationDesc').textContent = currentStation.desc;
+
+            const banner = document.getElementById('stationBanner');
+            banner.className = 'station-banner ' + currentStation.class + '-station';
+
+            updateStats();
+            showScreen('scannerScreen');
+        }
+
+        function backToEvents() { showScreen('eventScreen'); }
+        function backToStations() { showScreen('stationScreen'); }
+
+        function simulateScan(type) {
+            const overlay = document.getElementById('resultOverlay');
+            const content = document.getElementById('resultContent');
+            overlay.className = 'result-overlay';
+
+            const codes = Object.keys(currentEvent.registrations);
+            let html = '';
+
+            if (type === 'success') {
+                const code = codes[codeIndex % codes.length];
+                const reg = currentEvent.registrations[code];
+
+                // Check if already checked in at this station
+                if (reg.checkedIn[currentStation.id]) {
+                    simulateScan('duplicate');
+                    return;
+                }
+
+                // Check if has access to this station
+                if (!reg.access.includes(currentStation.id)) {
+                    simulateScan('no-access');
+                    return;
+                }
+
+                reg.checkedIn[currentStation.id] = true;
+                checkedInCount++;
+                codeIndex++;
+                updateStats();
+
+                overlay.classList.add('show', 'success');
+                html = `
+                    <i class="ti ti-circle-check result-icon"></i>
+                    <div class="result-title">Check-in สำเร็จ!</div>
+                    <img src="${reg.avatar}" class="result-avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <div class="result-ticket">${reg.ticket}</div>
+                    <div class="result-code">${code}</div>
+                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                `;
+            } else if (type === 'duplicate') {
+                const code = codes[(codeIndex > 0 ? codeIndex - 1 : 0) % codes.length];
+                const reg = currentEvent.registrations[code];
+
+                overlay.classList.add('show', 'warning');
+                html = `
+                    <i class="ti ti-alert-triangle result-icon"></i>
+                    <div class="result-title">เช็คอินแล้ว</div>
+                    <img src="${reg.avatar}" class="result-avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <p style="margin-top:0.5rem; opacity:0.9;">ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว</p>
+                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                `;
+            } else if (type === 'no-access') {
+                const code = codes[codeIndex % codes.length];
+                const reg = currentEvent.registrations[code] || { name: 'Test User', ticket: 'Standard', avatar: '/images/users/avatar-1.jpg' };
+
+                overlay.classList.add('show', 'no-access');
+                html = `
+                    <i class="ti ti-lock result-icon"></i>
+                    <div class="result-title">ไม่มีสิทธิ์เข้างาน</div>
+                    <img src="${reg.avatar}" class="result-avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <div class="result-ticket">${reg.ticket}</div>
+                    <p style="margin-top:0.75rem; opacity:0.9; font-size:0.9rem;">
+                        <i class="ti ti-x me-1"></i>ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong>
+                    </p>
+                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                `;
+            }
+
+            content.innerHTML = html;
+            if (navigator.vibrate) {
+                navigator.vibrate(type === 'success' ? [100] : [100, 50, 100]);
+            }
+        }
+
+        function manualCheckIn() {
+            const code = document.getElementById('manualCode').value.trim().toUpperCase();
+            if (!code) return;
+
+            const overlay = document.getElementById('resultOverlay');
+            const content = document.getElementById('resultContent');
+            overlay.className = 'result-overlay';
+
+            const reg = currentEvent.registrations[code];
+            let html = '';
+
+            if (!reg) {
+                overlay.classList.add('show', 'error');
+                html = `<i class="ti ti-circle-x result-icon"></i><div class="result-title">ไม่พบรหัส</div><div class="result-code">${code}</div><button class="btn-next" onclick="closeResult()">ลองใหม่ →</button>`;
+            } else if (!reg.access.includes(currentStation.id)) {
+                overlay.classList.add('show', 'no-access');
+                html = `<i class="ti ti-lock result-icon"></i><div class="result-title">ไม่มีสิทธิ์เข้างาน</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><p style="margin-top:0.5rem;">ไม่ได้ซื้อ Add-on สำหรับ ${currentStation.name}</p><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+            } else if (reg.checkedIn[currentStation.id]) {
+                overlay.classList.add('show', 'warning');
+                html = `<i class="ti ti-alert-triangle result-icon"></i><div class="result-title">เช็คอินแล้ว</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+            } else {
+                reg.checkedIn[currentStation.id] = true;
+                checkedInCount++;
+                updateStats();
+                overlay.classList.add('show', 'success');
+                html = `<i class="ti ti-circle-check result-icon"></i><div class="result-title">Check-in สำเร็จ!</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><div class="result-ticket">${reg.ticket}</div><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+            }
+
+            content.innerHTML = html;
+            document.getElementById('manualCode').value = '';
+            if (navigator.vibrate) navigator.vibrate(100);
+        }
+
+        function closeResult() { document.getElementById('resultOverlay').classList.remove('show'); }
+
+        function updateStats() {
+            document.getElementById('statCheckedIn').textContent = checkedInCount;
+            document.getElementById('statPending').textContent = eligibleCount - checkedInCount;
+            document.getElementById('statPercent').textContent = ((checkedInCount / eligibleCount) * 100).toFixed(0) + '%';
+        }
+
+        document.getElementById('manualCode').addEventListener('keypress', function (e) { if (e.key === 'Enter') manualCheckIn(); });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" <%- locals.html_attribute || '' %> >
+
+<head>
+    <%- include('./title-meta') %>
+        <%- locals.extra_css || '' %>
+            <%- include ('./head-css') %>
+</head>
+
+<body <%- locals.body_attribute || '' %>>
+
+    <div class="wrapper">
+        <%- include ('./menu') %>
+
+            <div class="page-content">
+
+                <div class="page-container">
+
+                    <%- content %>
+
+                </div>
+
+                <%- include ('./footer') %>
+            </div>
+
+    </div>
+
+    <%- include('./customizer') %>
+
+        <%- include ('./footer-scripts') %>
+            <%- locals.extra_javascript || '' %>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en" <%- html_attribute  || '' %>>
+
+<head>
+    <%- include('./title-meta') %>
+        <%- include ('./head-css') %>
+            <%- extra_css %>
+</head>
+
+<body <%- body_attribute %>>
+
+     <%- content %>
+
+    <%- include ('./footer-scripts') %>
+    <%- extra_javascript %>
+
+</body>
+
+</html>

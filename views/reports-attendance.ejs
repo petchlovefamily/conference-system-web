@@ -1,0 +1,154 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Reports' , title: 'Attendance Report' }) %>
+
+                <!-- Summary Cards -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h2 class="text-white mb-0">325</h2>
+                                <p class="mb-0">Total Registered</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h2 class="text-white mb-0">18</h2>
+                                <p class="mb-0">Checked In</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h2 class="text-white mb-0">5.5%</h2>
+                                <p class="mb-0">Check-in Rate</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <h2 class="text-white mb-0">307</h2>
+                                <p class="mb-0">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="header-title mb-0">Check-in Timeline</h5>
+                                <select class="form-select form-select-sm w-auto">
+                                    <option selected>ACCP Annual Conference 2026</option>
+                                    <option>Medical Innovation Summit</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-sm mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Time Slot</th>
+                                                <th class="text-center">Check-ins</th>
+                                                <th>Progress</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>08:00 - 09:00</td>
+                                                <td class="text-center">8</td>
+                                                <td>
+                                                    <div class="progress progress-sm">
+                                                        <div class="progress-bar bg-success" style="width: 45%"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>09:00 - 10:00</td>
+                                                <td class="text-center">6</td>
+                                                <td>
+                                                    <div class="progress progress-sm">
+                                                        <div class="progress-bar bg-success" style="width: 33%"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>10:00 - 11:00</td>
+                                                <td class="text-center">3</td>
+                                                <td>
+                                                    <div class="progress progress-sm">
+                                                        <div class="progress-bar bg-success" style="width: 17%"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>11:00 - 12:00</td>
+                                                <td class="text-center">1</td>
+                                                <td>
+                                                    <div class="progress progress-sm">
+                                                        <div class="progress-bar bg-success" style="width: 5%"></div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Session Attendance</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Workshop A</span>
+                                        <span>12/50</span>
+                                    </div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-warning" style="width: 24%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Workshop B</span>
+                                        <span>8/50</span>
+                                    </div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-info" style="width: 16%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Gala Dinner</span>
+                                        <span>15/150</span>
+                                    </div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-success" style="width: 10%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Export Data</h5>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-outline-primary btn-sm me-1"><i
+                                        class="ti ti-file-spreadsheet me-1"></i> Excel</button>
+                                <button class="btn btn-outline-danger btn-sm"><i class="ti ti-file-type-pdf me-1"></i>
+                                    PDF</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

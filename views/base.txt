@@ -1,0 +1,11 @@
+<%- contentFor('html_attribute') %>
+
+<%- contentFor('extra_css') %>
+
+<%- contentFor('body_attribute') %>
+
+<%- contentFor('content') %>
+
+
+
+<%- contentFor('extra_javascript') %>

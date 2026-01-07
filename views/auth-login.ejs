@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Login | Conference Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <link href="/css/app.min.css" rel="stylesheet" type="text/css" id="app-style" />
+    <link href="/css/icons.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body class="authentication-bg position-relative">
+    <div class="account-pages pt-2 pt-sm-5 pb-4 pb-sm-5 position-relative">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xxl-4 col-lg-5">
+                    <div class="card">
+                        <div class="card-header py-4 text-center bg-primary">
+                            <h4 class="text-white mb-0">
+                                <i class="ti ti-calendar-event me-2"></i>
+                                Conference Admin
+                            </h4>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="text-center w-75 m-auto">
+                                <h4 class="text-dark-emphasis text-center pb-0 fw-bold">Sign In</h4>
+                                <p class="text-muted mb-4">Enter your credentials to access the admin panel.</p>
+                            </div>
+
+                            <% if (typeof error !=='undefined' && error) { %>
+                                <div class="alert alert-danger">
+                                    <i class="ti ti-alert-circle me-2"></i>
+                                    <%= error %>
+                                </div>
+                                <% } %>
+
+                                    <form action="/login" method="POST">
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">Username</label>
+                                            <input class="form-control" type="text" id="username" name="username"
+                                                required placeholder="Enter your username">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="input-group input-group-merge">
+                                                <input type="password" id="password" name="password"
+                                                    class="form-control" placeholder="Enter your password" required>
+                                                <div class="input-group-text" data-password="false">
+                                                    <span class="password-eye"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 mb-0 text-center">
+                                            <button class="btn btn-primary w-100" type="submit">
+                                                <i class="ti ti-login me-1"></i> Log In
+                                            </button>
+                                        </div>
+                                    </form>
+                        </div>
+                    </div>
+
+                    <!-- Demo Credentials -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="text-center mb-3">Demo Accounts</h5>
+                            <table class="table table-sm table-bordered mb-0 small">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Role</th>
+                                        <th>Username</th>
+                                        <th>Password</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge bg-danger">Admin</span></td>
+                                        <td>admin</td>
+                                        <td>admin123</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-primary">Organizer</span></td>
+                                        <td>organizer</td>
+                                        <td>org123</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-success">Staff</span></td>
+                                        <td>staff</td>
+                                        <td>staff123</td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge bg-info">Reviewer</span></td>
+                                        <td>reviewer</td>
+                                        <td>rev123</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/vendor.min.js"></script>
+    <script src="/js/app.min.js"></script>
+</body>
+
+</html>

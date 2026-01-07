@@ -1,0 +1,86 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Settings' , title: 'Stripe Integration' }) %>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Stripe API Configuration</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-success d-flex align-items-center" role="alert">
+                                    <i class="ti ti-check fs-20 me-2"></i>
+                                    Stripe is connected and working properly.
+                                </div>
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Stripe Mode</label>
+                                        <select class="form-select">
+                                            <option value="test">Test Mode</option>
+                                            <option value="live" selected>Live Mode</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Publishable Key</label>
+                                        <input type="text" class="form-control" value="pk_live_xxxxxxxxxxxxxxxx"
+                                            readonly />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Secret Key</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control"
+                                                value="sk_live_xxxxxxxxxxxxxxxx" />
+                                            <button class="btn btn-outline-secondary" type="button"><i
+                                                    class="ti ti-eye"></i></button>
+                                        </div>
+                                        <small class="text-muted">Keep this secret!</small>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Webhook Secret</label>
+                                        <div class="input-group">
+                                            <input type="password" class="form-control"
+                                                value="whsec_xxxxxxxxxxxxxxxx" />
+                                            <button class="btn btn-outline-secondary" type="button"><i
+                                                    class="ti ti-eye"></i></button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Webhook URL</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control"
+                                                value="https://api.conference.com/webhooks/stripe" readonly />
+                                            <button class="btn btn-outline-secondary" type="button"><i
+                                                    class="ti ti-copy"></i></button>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Payment Methods</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" checked id="cardPayment">
+                                    <label class="form-check-label" for="cardPayment">Credit/Debit Card</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" checked id="promptpayPayment">
+                                    <label class="form-check-label" for="promptpayPayment">PromptPay QR</label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="bankPayment">
+                                    <label class="form-check-label" for="bankPayment">Bank Transfer</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

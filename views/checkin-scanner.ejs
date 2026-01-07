@@ -1,0 +1,440 @@
+<%- contentFor('html_attribute') %>
+    <%- contentFor('extra_css') %>
+        <style>
+            .scan-btn {
+                min-width: 150px;
+                padding: 1rem 1.5rem;
+            }
+
+            .mock-scanner {
+                background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+                border-radius: 16px;
+                padding: 2rem;
+            }
+
+            .scanner-animation {
+                width: 200px;
+                height: 200px;
+                border: 3px dashed rgba(255, 255, 255, 0.3);
+                border-radius: 16px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .modal-result .modal-content {
+                border: none;
+            }
+
+            .result-icon {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 1.5rem;
+            }
+
+            .result-success .result-icon {
+                background: linear-gradient(135deg, #0acf97 0%, #059669 100%);
+            }
+
+            .result-error .result-icon {
+                background: linear-gradient(135deg, #fa5c7c 0%, #dc3545 100%);
+            }
+
+            .result-warning .result-icon {
+                background: linear-gradient(135deg, #ffbc00 0%, #f59e0b 100%);
+            }
+        </style>
+        <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Conference' , title: 'QR Scanner' }) %>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="header-title mb-0">
+                                    <i class="ti ti-scan me-2"></i>Conference Check-in Scanner (Demo Mode)
+                                </h4>
+                                <a href="/checkin-mobile" class="btn btn-primary" target="_blank">
+                                    <i class="ti ti-device-mobile me-1"></i> Open Mobile Scanner
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <!-- Event Selection -->
+                                <div class="mb-4 text-center">
+                                    <label class="form-label">Select Event</label>
+                                    <select class="form-select form-select-lg w-auto mx-auto" id="eventSelect">
+                                        <option value="1">ACCP Annual Conference 2026</option>
+                                        <option value="2">Medical Innovation Summit</option>
+                                    </select>
+                                </div>
+
+                                <!-- Mock Scanner Area -->
+                                <div class="mock-scanner text-center mb-4">
+                                    <div class="scanner-animation mb-4">
+                                        <i class="ti ti-scan fs-64 text-white-50"></i>
+                                    </div>
+                                    <p class="text-white-50 mb-4">Simulate QR Code Scan</p>
+
+                                    <!-- Simulation Buttons -->
+                                    <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
+                                        <button class="btn btn-success btn-lg scan-btn"
+                                            onclick="simulateScan('REG-ABC-001')">
+                                            <i class="ti ti-check me-2"></i>Scan Success
+                                        </button>
+                                        <button class="btn btn-warning btn-lg scan-btn"
+                                            onclick="simulateScan('REG-ABC-001')">
+                                            <i class="ti ti-alert-triangle me-2"></i>Already In
+                                        </button>
+                                        <button class="btn btn-danger btn-lg scan-btn"
+                                            onclick="simulateScan('INVALID-CODE')">
+                                            <i class="ti ti-x me-2"></i>Invalid Code
+                                        </button>
+                                    </div>
+
+                                    <!-- Quick Test Codes -->
+                                    <p class="text-white-50 mb-2 fs-12">Or click sample tickets:</p>
+                                    <div class="d-flex flex-wrap justify-content-center gap-2">
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="simulateScan('REG-ABC-001')">REG-ABC-001</button>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="simulateScan('REG-DEF-002')">REG-DEF-002</button>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="simulateScan('REG-GHI-003')">REG-GHI-003</button>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="simulateScan('REG-JKL-004')">REG-JKL-004</button>
+                                        <button class="btn btn-outline-light btn-sm"
+                                            onclick="simulateScan('REG-MNO-005')">REG-MNO-005</button>
+                                    </div>
+                                </div>
+
+                                <!-- Manual Entry -->
+                                <div class="text-center mb-4">
+                                    <p class="text-muted mb-2">Or enter code manually (Desktop):</p>
+                                    <div class="input-group w-auto mx-auto" style="max-width: 400px;">
+                                        <span class="input-group-text"><i class="ti ti-ticket"></i></span>
+                                        <input type="text" class="form-control form-control-lg text-center"
+                                            placeholder="REG-XXX-000" id="manualCodeInput"
+                                            style="font-family: monospace; font-size: 1.25rem; letter-spacing: 2px;">
+                                        <button class="btn btn-primary btn-lg" type="button" onclick="manualCheckIn()">
+                                            <i class="ti ti-check me-1"></i> Check In
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Check-ins -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="header-title mb-0">
+                                    <i class="ti ti-history me-1"></i> Recent Check-ins
+                                </h5>
+                                <button class="btn btn-sm btn-outline-secondary" onclick="clearHistory()">
+                                    <i class="ti ti-trash me-1"></i> Clear
+                                </button>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-centered mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Reg Code</th>
+                                                <th>Attendee</th>
+                                                <th>Ticket Type</th>
+                                                <th>Check-in Time</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="recentCheckins">
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div id="noCheckins" class="text-center py-4 text-muted">
+                                    <i class="ti ti-clipboard-list fs-32 d-block mb-2"></i>
+                                    No check-ins yet. Start scanning!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Side Panel -->
+                    <div class="col-lg-4">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4 fw-bold mb-0" id="statTotal">325</h1>
+                                <p class="mb-0">Total Registrations</p>
+                            </div>
+                        </div>
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4 fw-bold mb-0" id="statCheckedIn">0</h1>
+                                <p class="mb-0">Checked In Today</p>
+                            </div>
+                        </div>
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h1 class="display-4 fw-bold mb-0" id="statPending">325</h1>
+                                <p class="mb-0">Pending Check-in</p>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="header-title mb-3">Check-in Rate</h5>
+                                <div class="progress progress-lg mb-2" style="height: 25px;">
+                                    <div class="progress-bar bg-success" id="progressBar" style="width: 0%">0%</div>
+                                </div>
+                                <p class="text-muted mb-0 fs-12" id="progressText">0 of 325 attendees checked in</p>
+                            </div>
+                        </div>
+
+                        <!-- Test Data Info -->
+                        <div class="card border-primary">
+                            <div class="card-header bg-primary text-white">
+                                <h6 class="mb-0"><i class="ti ti-info-circle me-1"></i> Test Attendees</h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table table-sm mb-0 fs-12">
+                                    <tbody>
+                                        <tr>
+                                            <td><code>REG-ABC-001</code></td>
+                                            <td>Dr. Somchai</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>REG-DEF-002</code></td>
+                                            <td>Dr. Nattaporn</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>REG-GHI-003</code></td>
+                                            <td>Dr. Wichai</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>REG-JKL-004</code></td>
+                                            <td>Supaporn</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>REG-MNO-005</code></td>
+                                            <td>Piyapong</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Modal -->
+                <div class="modal fade modal-result" id="resultModal" tabindex="-1" data-bs-backdrop="static">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center py-5" id="resultModalBody">
+                                <!-- Dynamic content -->
+                            </div>
+                            <div class="modal-footer justify-content-center border-0 pt-0">
+                                <button type="button" class="btn btn-lg btn-secondary px-5" data-bs-dismiss="modal">
+                                    <i class="ti ti-scan me-2"></i>Scan Next
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        // Mock registration data
+                        const mockRegistrations = {
+                            'REG-ABC-001': { id: 1, name: 'Dr. Somchai Jaidee', email: 'somchai@example.com', ticket: 'Early Bird - Member', avatar: '/images/users/avatar-1.jpg', checkedIn: false },
+                            'REG-DEF-002': { id: 2, name: 'Dr. Nattaporn Srisuk', email: 'nattaporn@example.com', ticket: 'Regular - Public', avatar: '/images/users/avatar-2.jpg', checkedIn: false },
+                            'REG-GHI-003': { id: 3, name: 'Dr. Wichai Tanaka', email: 'wichai@example.com', ticket: 'VIP Pass', avatar: '/images/users/avatar-3.jpg', checkedIn: false },
+                            'REG-JKL-004': { id: 4, name: 'Supaporn Chai', email: 'supaporn@example.com', ticket: 'Early Bird - Member', avatar: '/images/users/avatar-4.jpg', checkedIn: false },
+                            'REG-MNO-005': { id: 5, name: 'Piyapong Suwannee', email: 'piyapong@example.com', ticket: 'Workshop Add-on', avatar: '/images/users/avatar-5.jpg', checkedIn: false }
+                        };
+
+                        let checkedInCount = 0;
+                        const totalRegistrations = 325;
+                        const recentList = [];
+                        let resultModal = null;
+
+                        document.addEventListener('DOMContentLoaded', function () {
+                            resultModal = new bootstrap.Modal(document.getElementById('resultModal'));
+                        });
+
+                        function simulateScan(code) {
+                            processCheckIn(code);
+                        }
+
+                        function manualCheckIn() {
+                            const code = document.getElementById('manualCodeInput').value.trim().toUpperCase();
+                            if (code) {
+                                processCheckIn(code);
+                                document.getElementById('manualCodeInput').value = '';
+                            }
+                        }
+
+                        function processCheckIn(code) {
+                            code = code.trim().toUpperCase();
+                            const modalBody = document.getElementById('resultModalBody');
+                            const modalEl = document.getElementById('resultModal');
+
+                            modalEl.classList.remove('result-success', 'result-error', 'result-warning');
+
+                            const reg = mockRegistrations[code];
+                            let html = '';
+
+                            if (!reg) {
+                                // Invalid code
+                                modalEl.classList.add('result-error');
+                                html = `
+                <div class="result-icon text-white">
+                    <i class="ti ti-x fs-48"></i>
+                </div>
+                <h2 class="text-danger mb-2">Invalid Code</h2>
+                <p class="text-muted mb-0">Registration not found</p>
+                <p class="mb-0"><code class="fs-5">${code}</code></p>
+            `;
+                                addToRecentList(code, null, 'invalid');
+                            } else if (reg.checkedIn) {
+                                // Already checked in
+                                modalEl.classList.add('result-warning');
+                                html = `
+                <div class="result-icon text-white">
+                    <i class="ti ti-alert-triangle fs-48"></i>
+                </div>
+                <h2 class="text-warning mb-2">Already Checked In</h2>
+                <div class="d-flex align-items-center justify-content-center gap-2 mb-3">
+                    <img src="${reg.avatar}" class="rounded-circle" width="50" height="50">
+                    <div class="text-start">
+                        <h5 class="mb-0">${reg.name}</h5>
+                        <small class="text-muted">${reg.ticket}</small>
+                    </div>
+                </div>
+                <p class="text-muted mb-0">This attendee has already been checked in.</p>
+            `;
+                                addToRecentList(code, reg, 'duplicate');
+                            } else {
+                                // Success
+                                reg.checkedIn = true;
+                                checkedInCount++;
+                                updateStats();
+
+                                modalEl.classList.add('result-success');
+                                html = `
+                <div class="result-icon text-white">
+                    <i class="ti ti-check fs-48"></i>
+                </div>
+                <h2 class="text-success mb-3">Check-in Successful!</h2>
+                <div class="d-flex align-items-center justify-content-center gap-3 mb-4">
+                    <img src="${reg.avatar}" class="rounded-circle" width="80" height="80" style="border: 4px solid #0acf97;">
+                    <div class="text-start">
+                        <h4 class="mb-1">${reg.name}</h4>
+                        <span class="badge bg-primary fs-6">${reg.ticket}</span>
+                    </div>
+                </div>
+                <div class="row text-center border-top pt-3 mx-0">
+                    <div class="col-6 border-end">
+                        <small class="text-muted d-block">Registration Code</small>
+                        <code class="fs-5">${code}</code>
+                    </div>
+                    <div class="col-6">
+                        <small class="text-muted d-block">Check-in Time</small>
+                        <strong>${new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' })}</strong>
+                    </div>
+                </div>
+            `;
+                                addToRecentList(code, reg, 'success');
+                            }
+
+                            modalBody.innerHTML = html;
+                            resultModal.show();
+
+                            // Auto-close after 4 seconds
+                            setTimeout(() => {
+                                resultModal.hide();
+                            }, 4000);
+                        }
+
+                        function addToRecentList(code, reg, status) {
+                            const now = new Date();
+                            const time = now.toLocaleString('th-TH', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+                            recentList.unshift({ code, reg, status, time });
+                            if (recentList.length > 10) recentList.pop();
+
+                            updateRecentTable();
+                        }
+
+                        function updateRecentTable() {
+                            const tbody = document.getElementById('recentCheckins');
+                            const noCheckins = document.getElementById('noCheckins');
+
+                            if (recentList.length === 0) {
+                                tbody.innerHTML = '';
+                                noCheckins.classList.remove('d-none');
+                                return;
+                            }
+
+                            noCheckins.classList.add('d-none');
+
+                            tbody.innerHTML = recentList.map(item => {
+                                let statusBadge = '';
+                                let attendeeHtml = '';
+                                let ticketHtml = '-';
+
+                                if (item.status === 'success') {
+                                    statusBadge = '<span class="badge bg-success">Success</span>';
+                                    attendeeHtml = `<div class="d-flex align-items-center"><img src="${item.reg.avatar}" class="rounded-circle me-2" height="32"><span>${item.reg.name}</span></div>`;
+                                    ticketHtml = item.reg.ticket;
+                                } else if (item.status === 'duplicate') {
+                                    statusBadge = '<span class="badge bg-warning">Already In</span>';
+                                    attendeeHtml = `<div class="d-flex align-items-center"><img src="${item.reg.avatar}" class="rounded-circle me-2" height="32"><span>${item.reg.name}</span></div>`;
+                                    ticketHtml = item.reg.ticket;
+                                } else {
+                                    statusBadge = '<span class="badge bg-danger">Invalid</span>';
+                                    attendeeHtml = '<span class="text-muted">Unknown</span>';
+                                }
+
+                                return `
+                <tr>
+                    <td><code>${item.code}</code></td>
+                    <td>${attendeeHtml}</td>
+                    <td>${ticketHtml}</td>
+                    <td>${item.time}</td>
+                    <td>${statusBadge}</td>
+                </tr>
+            `;
+                            }).join('');
+                        }
+
+                        function updateStats() {
+                            document.getElementById('statCheckedIn').textContent = checkedInCount;
+                            document.getElementById('statPending').textContent = totalRegistrations - checkedInCount;
+
+                            const percent = ((checkedInCount / totalRegistrations) * 100).toFixed(1);
+                            document.getElementById('progressBar').style.width = percent + '%';
+                            document.getElementById('progressBar').textContent = percent + '%';
+                            document.getElementById('progressText').textContent = `${checkedInCount} of ${totalRegistrations} attendees checked in`;
+                        }
+
+                        function clearHistory() {
+                            recentList.length = 0;
+                            updateRecentTable();
+                            // Reset mock data
+                            Object.values(mockRegistrations).forEach(r => r.checkedIn = false);
+                            checkedInCount = 0;
+                            updateStats();
+                        }
+
+                        // Enter key for manual input
+                        document.getElementById('manualCodeInput').addEventListener('keypress', function (e) {
+                            if (e.key === 'Enter') manualCheckIn();
+                        });
+
+                        // Initialize
+                        updateRecentTable();
+                    </script>

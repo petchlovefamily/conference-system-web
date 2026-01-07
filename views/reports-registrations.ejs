@@ -1,0 +1,153 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Reports' , title: 'Registration Stats' }) %>
+
+                <!-- Summary Cards -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-0">128</h4>
+                                <p class="text-muted mb-0">Total Registrations</p>
+                                <span class="badge bg-success-subtle text-success mt-1">+15% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-0">85%</h4>
+                                <p class="text-muted mb-0">Conversion Rate</p>
+                                <span class="badge bg-success-subtle text-success mt-1">+5% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-0">฿3,320</h4>
+                                <p class="text-muted mb-0">Avg. Order Value</p>
+                                <span class="badge bg-warning-subtle text-warning mt-1">-2% from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="mb-0">1.8</h4>
+                                <p class="text-muted mb-0">Add-ons per Reg</p>
+                                <span class="badge bg-success-subtle text-success mt-1">+0.3 from last month</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Registrations by Ticket Type</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-sm mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Ticket Type</th>
+                                                <th class="text-center">Count</th>
+                                                <th class="text-center">%</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Early Bird - Member</td>
+                                                <td class="text-center">45</td>
+                                                <td class="text-center">35%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Early Bird - Public</td>
+                                                <td class="text-center">38</td>
+                                                <td class="text-center">30%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Regular - Member</td>
+                                                <td class="text-center">25</td>
+                                                <td class="text-center">20%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>VIP Pass</td>
+                                                <td class="text-center">12</td>
+                                                <td class="text-center">9%</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Guest Pass</td>
+                                                <td class="text-center">8</td>
+                                                <td class="text-center">6%</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Attendee Type Distribution</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="d-flex justify-content-center gap-4 mb-4">
+                                    <div>
+                                        <div
+                                            class="avatar-lg bg-success-subtle rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                            <h4 class="mb-0 text-success">65%</h4>
+                                        </div>
+                                        <span>Members</span>
+                                    </div>
+                                    <div>
+                                        <div
+                                            class="avatar-lg bg-info-subtle rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                            <h4 class="mb-0 text-info">28%</h4>
+                                        </div>
+                                        <span>Public</span>
+                                    </div>
+                                    <div>
+                                        <div
+                                            class="avatar-lg bg-warning-subtle rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                            <h4 class="mb-0 text-warning">7%</h4>
+                                        </div>
+                                        <span>Guest</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Daily Registration Trend</h5>
+                            </div>
+                            <div class="card-body">
+                                <div
+                                    style="height: 200px; background: linear-gradient(180deg, rgba(24,138,226,0.1) 0%, rgba(24,138,226,0.02) 100%); border-radius: 8px; display: flex; align-items: flex-end; padding: 20px; gap: 8px;">
+                                    <div style="flex: 1; height: 30%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 45%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 25%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 60%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 85%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 70%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 95%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 80%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 55%; background: #188ae2; border-radius: 4px;"></div>
+                                    <div style="flex: 1; height: 40%; background: #188ae2; border-radius: 4px;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

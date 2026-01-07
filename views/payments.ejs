@@ -1,0 +1,543 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Conference' , title: 'Payments' }) %>
+
+                <!-- Event Selector -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-select form-select-lg" id="eventContextSelector">
+                            <option value="">-- Select Event --</option>
+                            <option value="accp2026" selected>ACCP Annual Conference 2026</option>
+                            <option value="med-summit">Medical Innovation Summit</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-5" style="display: none;">
+                    <i class="ri-calendar-event-line fs-1 text-muted"></i>
+                    <h4 class="mt-3 text-muted">Please select an event to view payment data.</h4>
+                </div>
+
+                <!-- Main Content -->
+                <div id="mainPageContent">
+
+                    <!-- Revenue Breakdown -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-white bg-opacity-25 rounded">
+                                            <i class="ti ti-currency-baht fs-20 text-white avatar-title"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="text-white mb-0">฿4,900,000</h4>
+                                            <p class="text-white-50 mb-0">Professional Revenue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-white bg-opacity-25 rounded">
+                                            <i class="ti ti-currency-baht fs-20 text-white avatar-title"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="text-white mb-0">฿1,500,000</h4>
+                                            <p class="text-white-50 mb-0">Student Revenue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-white bg-opacity-25 rounded">
+                                            <i class="ti ti-currency-baht fs-20 text-white avatar-title"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="text-white mb-0">฿399,000</h4>
+                                            <p class="text-white-50 mb-0">Workshop Revenue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-white bg-opacity-25 rounded">
+                                            <i class="ti ti-currency-baht fs-20 text-white avatar-title"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="text-white mb-0">฿275,000</h4>
+                                            <p class="text-white-50 mb-0">Gala Revenue</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h4 class="header-title">Payment Transactions</h4>
+                                    <button class="btn btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#exportModal"><i class="ti ti-download me-1"></i>
+                                        Export</button>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Filters -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="statusFilter">
+                                                <option value="">All Status</option>
+                                                <option value="completed">Completed</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="failed">Failed</option>
+                                                <option value="refunded">Refunded</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="methodFilter">
+                                                <option value="">All Methods</option>
+                                                <option value="card">Credit Card</option>
+                                                <option value="promptpay">PromptPay</option>
+                                                <option value="bank">Bank Transfer</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control" placeholder="Search..."
+                                                id="searchInput">
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Payment ID</th>
+                                                    <th>Registration</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Stripe ID</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><code>PAY-001</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="fs-14">Dr. Somchai Jaidee</span><br>
+                                                            <small class="text-muted">REG-ABC-001</small>
+                                                        </div>
+                                                    </td>
+                                                    <td><strong class="text-success">฿5,500</strong></td>
+                                                    <td><i class="ti ti-credit-card text-primary me-1"></i> Credit Card
+                                                    </td>
+                                                    <td><code class="fs-11">pi_3PQ1xx...9Yz</code></td>
+                                                    <td><span class="badge bg-success">Completed</span></td>
+                                                    <td>Jan 5, 2026</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewPaymentModal"
+                                                            onclick="viewPayment('PAY-001', 'Dr. Somchai Jaidee', 'REG-ABC-001', '฿5,500', 'Credit Card', 'pi_3PQ1xx...9Yz', 'Completed', 'Jan 5, 2026 14:32:15')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#receiptModal"
+                                                            onclick="sendReceipt('PAY-001', 'somchai@hospital.com')"><i
+                                                                class="ti ti-receipt"></i></button>
+                                                        <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#refundModal"
+                                                            onclick="refundPayment('PAY-001', '฿5,500', 'Dr. Somchai Jaidee')"><i
+                                                                class="ti ti-arrow-back-up text-warning"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>PAY-002</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="fs-14">Nattaporn Srisuk</span><br>
+                                                            <small class="text-muted">REG-DEF-002</small>
+                                                        </div>
+                                                    </td>
+                                                    <td><strong>฿4,500</strong></td>
+                                                    <td><i class="ti ti-qrcode text-info me-1"></i> PromptPay</td>
+                                                    <td><span class="text-muted">-</span></td>
+                                                    <td><span class="badge bg-warning">Pending</span></td>
+                                                    <td>Jan 6, 2026</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewPaymentModal"
+                                                            onclick="viewPayment('PAY-002', 'Nattaporn Srisuk', 'REG-DEF-002', '฿4,500', 'PromptPay', '-', 'Pending', 'Jan 6, 2026 09:15:00')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-primary me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#verifyModal"
+                                                            onclick="verifyPayment('PAY-002', 'Nattaporn Srisuk')"><i
+                                                                class="ti ti-check"></i></button>
+                                                        <button class="btn btn-sm btn-light disabled"><i
+                                                                class="ti ti-arrow-back-up"></i></button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><code>PAY-004</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <span class="fs-14">Supaporn Chai</span><br>
+                                                            <small class="text-muted">REG-JKL-004</small>
+                                                        </div>
+                                                    </td>
+                                                    <td><strong class="text-danger">฿3,500</strong></td>
+                                                    <td><i class="ti ti-credit-card text-primary me-1"></i> Credit Card
+                                                    </td>
+                                                    <td><code class="fs-11">pi_5TU3zz...8Cd</code></td>
+                                                    <td><span class="badge bg-danger">Failed</span></td>
+                                                    <td>Jan 4, 2026</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewPaymentModal"
+                                                            onclick="viewPayment('PAY-004', 'Supaporn Chai', 'REG-JKL-004', '฿3,500', 'Credit Card', 'pi_5TU3zz...8Cd', 'Failed', 'Jan 4, 2026 16:45:30')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#retryModal"
+                                                            onclick="retryPayment('PAY-004', 'Supaporn Chai')"><i
+                                                                class="ti ti-refresh"></i></button>
+                                                        <button class="btn btn-sm btn-light disabled"><i
+                                                                class="ti ti-arrow-back-up"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="text-muted">Showing <b>1-4</b> of <b>100</b> transactions</div>
+                                        <nav>
+                                            <ul class="pagination pagination-sm mb-0">
+                                                <li class="page-item disabled"><a class="page-link"
+                                                        href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                            </ul>
+                                        </nav>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View Payment Modal -->
+                    <div class="modal fade" id="viewPaymentModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Payment Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-borderless mb-0">
+                                        <tr>
+                                            <td><strong>Payment ID:</strong></td>
+                                            <td><code id="viewPayId"></code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Customer:</strong></td>
+                                            <td id="viewPayCustomer"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Registration:</strong></td>
+                                            <td><code id="viewPayReg"></code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Amount:</strong></td>
+                                            <td id="viewPayAmount" class="fw-bold text-success"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Method:</strong></td>
+                                            <td id="viewPayMethod"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Stripe ID:</strong></td>
+                                            <td><code id="viewPayStripe"></code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Status:</strong></td>
+                                            <td id="viewPayStatus"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Date:</strong></td>
+                                            <td id="viewPayDate"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Refund Modal -->
+                    <div class="modal fade" id="refundModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-warning">
+                                    <h5 class="modal-title"><i class="ti ti-arrow-back-up me-2"></i>Process Refund</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="alert alert-warning">
+                                        <i class="ti ti-alert-triangle me-1"></i> This will refund the payment via
+                                        Stripe.
+                                    </div>
+                                    <p><strong>Customer:</strong> <span id="refundCustomer"></span></p>
+                                    <p><strong>Amount:</strong> <span id="refundAmount" class="fw-bold"></span></p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Refund Type</label>
+                                        <select class="form-select" id="refundType">
+                                            <option value="full">Full Refund</option>
+                                            <option value="partial">Partial Refund</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Reason</label>
+                                        <textarea class="form-control" id="refundReason" rows="2"
+                                            placeholder="Enter reason..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-warning" onclick="confirmRefund()">Process
+                                        Refund</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Receipt Modal -->
+                    <div class="modal fade" id="receiptModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-receipt me-2"></i>Send Receipt</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="ti ti-mail fs-48 text-primary mb-3"></i>
+                                    <p>Send receipt to:</p>
+                                    <p><strong id="receiptEmail"></strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="confirmReceipt()"><i
+                                            class="ti ti-send me-1"></i> Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Verify Modal -->
+                    <div class="modal fade" id="verifyModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-primary text-white">
+                                    <h5 class="modal-title"><i class="ti ti-check me-2"></i>Manual Verification</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Manually mark this payment as completed?</p>
+                                    <p><strong id="verifyCustomer"></strong></p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Transaction Reference</label>
+                                        <input type="text" class="form-control" id="verifyRef"
+                                            placeholder="Bank transfer ref...">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-success" onclick="confirmVerify()">Confirm
+                                        Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Retry Modal -->
+                    <div class="modal fade" id="retryModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-refresh me-2"></i>Retry Payment</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="ti ti-refresh fs-48 text-success mb-3"></i>
+                                    <p>Send new payment link to customer?</p>
+                                    <p><strong id="retryCustomer"></strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-success" onclick="confirmRetry()">Send Payment
+                                        Link</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Modal -->
+                    <div class="modal fade" id="exportModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-download me-2"></i>Export Payments</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Date Range</label>
+                                        <div class="row g-2">
+                                            <div class="col-6"><input type="date" class="form-control"
+                                                    value="2026-01-01">
+                                            </div>
+                                            <div class="col-6"><input type="date" class="form-control"
+                                                    value="2026-01-07">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Format</label>
+                                        <select class="form-select">
+                                            <option>Excel</option>
+                                            <option>CSV</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary"
+                                        onclick="exportPayments()">Export</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Toast -->
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="successToast" class="toast">
+                            <div class="toast-header bg-success text-white"><i class="ti ti-check me-2"></i><strong
+                                    class="me-auto">Success</strong><button type="button"
+                                    class="btn-close btn-close-white" data-bs-dismiss="toast"></button></div>
+                            <div class="toast-body" id="toastMessage"></div>
+                        </div>
+                    </div>
+
+                </div><!-- End of mainPageContent -->
+
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        // Event Selector Toggle Logic
+                        var eventSelector = document.getElementById('eventContextSelector');
+                        var mainContent = document.getElementById('mainPageContent');
+                        var emptyState = document.getElementById('emptyState');
+
+                        function toggleEventContent() {
+                            var selectedEvent = eventSelector.value;
+                            if (selectedEvent) {
+                                mainContent.style.display = 'block';
+                                emptyState.style.display = 'none';
+                            } else {
+                                mainContent.style.display = 'none';
+                                emptyState.style.display = 'block';
+                            }
+                        }
+                        eventSelector.addEventListener('change', toggleEventContent);
+                        toggleEventContent();
+
+                        let currentPayId = '';
+
+                        function viewPayment(id, customer, reg, amount, method, stripe, status, date) {
+                            document.getElementById('viewPayId').textContent = id;
+                            document.getElementById('viewPayCustomer').textContent = customer;
+                            document.getElementById('viewPayReg').textContent = reg;
+                            document.getElementById('viewPayAmount').textContent = amount;
+                            document.getElementById('viewPayMethod').textContent = method;
+                            document.getElementById('viewPayStripe').textContent = stripe;
+                            const statusClass = status === 'Completed' ? 'success' : status === 'Pending' ? 'warning' : 'danger';
+                            document.getElementById('viewPayStatus').innerHTML = '<span class="badge bg-' + statusClass + '">' + status + '</span>';
+                            document.getElementById('viewPayDate').textContent = date;
+                        }
+
+                        function refundPayment(id, amount, customer) {
+                            currentPayId = id;
+                            document.getElementById('refundAmount').textContent = amount;
+                            document.getElementById('refundCustomer').textContent = customer;
+                        }
+
+                        function confirmRefund() {
+                            bootstrap.Modal.getInstance(document.getElementById('refundModal')).hide();
+                            showToast('Refund processed successfully!');
+                        }
+
+                        function sendReceipt(id, email) {
+                            currentPayId = id;
+                            document.getElementById('receiptEmail').textContent = email;
+                        }
+
+                        function confirmReceipt() {
+                            bootstrap.Modal.getInstance(document.getElementById('receiptModal')).hide();
+                            showToast('Receipt sent!');
+                        }
+
+                        function verifyPayment(id, customer) {
+                            currentPayId = id;
+                            document.getElementById('verifyCustomer').textContent = customer;
+                        }
+
+                        function confirmVerify() {
+                            bootstrap.Modal.getInstance(document.getElementById('verifyModal')).hide();
+                            showToast('Payment verified!');
+                        }
+
+                        function retryPayment(id, customer) {
+                            currentPayId = id;
+                            document.getElementById('retryCustomer').textContent = customer;
+                        }
+
+                        function confirmRetry() {
+                            bootstrap.Modal.getInstance(document.getElementById('retryModal')).hide();
+                            showToast('Payment link sent!');
+                        }
+
+                        function exportPayments() {
+                            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+                            showToast('Export started!');
+                        }
+
+                        function showToast(msg) {
+                            document.getElementById('toastMessage').textContent = msg;
+                            new bootstrap.Toast(document.getElementById('successToast')).show();
+                        }
+                    </script>

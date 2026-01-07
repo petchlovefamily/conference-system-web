@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" <%- html_attribute %>>
+
+<head>
+    <%- include('./title-meta') %>
+     <%- include ('./head-css') %>
+      <%- extra_css%>
+ </head>
+
+<body <%- body_attribute %>>
+    <!-- Begin page -->
+    <div class="wrapper">
+
+          <%- include('./topbar') %>
+          
+          <%- include('./horizontal-nav') %>
+      <!-- ============================================================== -->
+      <!-- Start Page Content here -->
+      <!-- ============================================================== -->
+
+      <div class="page-content">
+
+        <div class="page-container">
+
+           <%- content %>
+
+        </div>
+
+        <%- include ('./footer') %>
+
+        <!-- ============================================================== -->
+        <!-- End Page content -->
+        <!-- ============================================================== -->
+
+      </div>
+      <!-- END wrapper -->
+
+    </div>
+
+    <%- include('./customizer') %>
+
+    <%- include ('./footer-scripts') %>
+    <%- extra_javascript %>
+
+</body>
+
+</html>

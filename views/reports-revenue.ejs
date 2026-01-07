@@ -1,0 +1,132 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Reports' , title: 'Revenue Report' }) %>
+
+                <!-- Summary Cards -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h4 class="text-white mb-0">฿425,000</h4>
+                                <p class="mb-0">Total Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h4 class="text-white mb-0">฿380,000</h4>
+                                <p class="mb-0">Net Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h4 class="text-white mb-0">฿45,000</h4>
+                                <p class="mb-0">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <h4 class="text-white mb-0">฿12,500</h4>
+                                <p class="mb-0">Refunded</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="header-title mb-0">Revenue Overview</h5>
+                                <select class="form-select form-select-sm w-auto">
+                                    <option>Last 7 Days</option>
+                                    <option selected>Last 30 Days</option>
+                                    <option>This Year</option>
+                                </select>
+                            </div>
+                            <div class="card-body">
+                                <div
+                                    style="height: 300px; background: linear-gradient(180deg, rgba(16,196,105,0.1) 0%, rgba(16,196,105,0.02) 100%); border-radius: 8px; display: flex; align-items: flex-end; padding: 20px; gap: 10px;">
+                                    <div
+                                        style="width: 8%; height: 45%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 60%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 35%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 80%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 95%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 70%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                    <div
+                                        style="width: 8%; height: 55%; background: linear-gradient(180deg, #10c469 0%, #0ca359 100%); border-radius: 4px;">
+                                    </div>
+                                </div>
+                                <div class="text-center text-muted mt-2">
+                                    <small>Jan 1 - Jan 7, 2026</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Revenue by Event</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>ACCP Annual Conference 2026</span>
+                                        <strong>฿325,000</strong>
+                                    </div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-primary" style="width: 76%"></div>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span>Medical Innovation Summit</span>
+                                        <strong>฿100,000</strong>
+                                    </div>
+                                    <div class="progress progress-sm">
+                                        <div class="progress-bar bg-info" style="width: 24%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Payment Methods</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span><i class="ti ti-credit-card text-primary me-1"></i> Credit Card</span>
+                                    <strong>฿280,000</strong>
+                                </div>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span><i class="ti ti-qrcode text-info me-1"></i> PromptPay</span>
+                                    <strong>฿120,000</strong>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <span><i class="ti ti-building-bank text-success me-1"></i> Bank Transfer</span>
+                                    <strong>฿25,000</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

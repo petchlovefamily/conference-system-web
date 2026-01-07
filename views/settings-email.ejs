@@ -1,0 +1,83 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Settings' , title: 'Email Settings' }) %>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">SMTP Configuration</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-8 mb-3">
+                                            <label class="form-label">SMTP Host</label>
+                                            <input type="text" class="form-control" value="smtp.gmail.com" />
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label">Port</label>
+                                            <input type="number" class="form-control" value="587" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Username</label>
+                                            <input type="text" class="form-control" value="conference@accp.or.th" />
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Password</label>
+                                            <input type="password" class="form-control" value="xxxxxxxx" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">From Name</label>
+                                        <input type="text" class="form-control" value="ACCP Conference" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">From Email</label>
+                                        <input type="email" class="form-control" value="noreply@accp.or.th" />
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" id="useTLS" checked>
+                                        <label class="form-check-label" for="useTLS">Use TLS</label>
+                                    </div>
+                                    <div class="d-flex gap-2">
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                        <button type="button" class="btn btn-outline-secondary">Send Test Email</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Email Templates</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Registration Confirmation
+                                        <a href="#" class="btn btn-sm btn-light"><i class="ti ti-pencil"></i></a>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Payment Receipt
+                                        <a href="#" class="btn btn-sm btn-light"><i class="ti ti-pencil"></i></a>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Event Reminder
+                                        <a href="#" class="btn btn-sm btn-light"><i class="ti ti-pencil"></i></a>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        Abstract Approved
+                                        <a href="#" class="btn btn-sm btn-light"><i class="ti ti-pencil"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

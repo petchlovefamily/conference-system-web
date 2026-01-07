@@ -1,0 +1,66 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Settings' , title: 'General Settings' }) %>
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">System Configuration</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">System Name</label>
+                                        <input type="text" class="form-control" value="Conference Management System" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Organization Name</label>
+                                        <input type="text" class="form-control" value="ACCP Thailand" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Contact Email</label>
+                                        <input type="email" class="form-control" value="conference@accp.or.th" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Contact Phone</label>
+                                        <input type="text" class="form-control" value="+66 2-XXX-XXXX" />
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Default Currency</label>
+                                        <select class="form-select">
+                                            <option value="THB" selected>THB - Thai Baht (฿)</option>
+                                            <option value="USD">USD - US Dollar ($)</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Timezone</label>
+                                        <select class="form-select">
+                                            <option value="Asia/Bangkok" selected>Asia/Bangkok (UTC+7)</option>
+                                            <option value="UTC">UTC</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">System Info</h5>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-unstyled mb-0">
+                                    <li class="mb-2"><strong>Version:</strong> 1.0.0</li>
+                                    <li class="mb-2"><strong>Node.js:</strong> v20.10.0</li>
+                                    <li class="mb-2"><strong>Database:</strong> PostgreSQL 15</li>
+                                    <li class="mb-2"><strong>Last Backup:</strong> Jan 7, 2026</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

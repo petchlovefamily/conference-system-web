@@ -1,0 +1,556 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Conference' , title: 'Ticket Types' }) %>
+
+                <!-- Event Selector -->
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <select class="form-select form-select-lg" id="eventContextSelector">
+                            <option value="">-- Select Event --</option>
+                            <option value="accp2026" selected>ACCP Annual Conference 2026</option>
+                            <option value="med-summit">Medical Innovation Summit</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="emptyState" class="text-center py-5" style="display: none;">
+                    <i class="ri-calendar-event-line fs-1 text-muted"></i>
+                    <h4 class="mt-3 text-muted">Please select an event to view ticket data.</h4>
+                </div>
+
+                <!-- Main Content -->
+                <div id="mainPageContent">
+
+                    <!-- Ticket Sales Overview -->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-primary-subtle rounded">
+                                            <i class="ti ti-ticket text-primary avatar-title fs-20"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">620</h4>
+                                            <p class="text-muted mb-0">Professional Sold</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted"><span class="text-primary fw-semibold">350</span>
+                                            Member</small>
+                                        <span class="mx-1">|</span>
+                                        <small class="text-muted"><span class="text-info fw-semibold">270</span>
+                                            Non-Member</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-success-subtle rounded">
+                                            <i class="ti ti-school text-success avatar-title fs-20"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">312</h4>
+                                            <p class="text-muted mb-0">Student Sold</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted"><span class="text-success fw-semibold">200</span>
+                                            Early
+                                            Bird</small>
+                                        <span class="mx-1">|</span>
+                                        <small class="text-muted"><span class="text-success fw-semibold">112</span>
+                                            Regular</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-warning-subtle rounded">
+                                            <i class="ti ti-tools text-warning avatar-title fs-20"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">190</h4>
+                                            <p class="text-muted mb-0">Workshops</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 d-flex align-items-center">
+                                        <span class="badge bg-warning-subtle text-warning fs-11">Add-on Item</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-sm bg-info-subtle rounded">
+                                            <i class="ti ti-glass-full text-info avatar-title fs-20"></i>
+                                        </div>
+                                        <div class="ms-3">
+                                            <h4 class="mb-0">125</h4>
+                                            <p class="text-muted mb-0">Gala Dinner</p>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2 d-flex align-items-center">
+                                        <span class="badge bg-info-subtle text-info fs-11">Add-on Item</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h4 class="header-title">Ticket Types Management</h4>
+                                    <button class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#addTicketModal">
+                                        <i class="ti ti-plus me-1"></i> Add Ticket Type
+                                    </button>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Filters -->
+                                    <div class="row mb-3">
+
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="categoryFilter">
+                                                <option value="">All Categories</option>
+                                                <option value="primary">Primary</option>
+                                                <option value="addon">Add-on</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Event</th>
+                                                    <th>Ticket Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Quota</th>
+                                                    <th>Sold</th>
+                                                    <th>Available</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- ACCP Conference Primary Tickets -->
+                                                <tr class="table-light">
+                                                    <td colspan="9"><strong>ACCP Annual Conference 2026</strong></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>TKT-001</code></td>
+                                                    <td>ACCP Annual Conference 2026</td>
+                                                    <td><strong>Early Bird - Member</strong></td>
+                                                    <td><span class="badge bg-primary">Primary</span></td>
+                                                    <td>฿3,500</td>
+                                                    <td>100</td>
+                                                    <td>85</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="progress progress-sm flex-grow-1"
+                                                                style="width: 80px;">
+                                                                <div class="progress-bar bg-warning" style="width: 85%">
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-warning fw-semibold">15</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewTicketModal"
+                                                            onclick="viewTicket('TKT-001', 'ACCP Annual Conference 2026', 'Early Bird - Member', 'Primary', 3500, 100, 85, 'For ACCP members registering during early bird period')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#editTicketModal"
+                                                            onclick="editTicket('TKT-001', 'Early Bird - Member', 'Primary', 3500, 100, 'For ACCP members registering during early bird period')"><i
+                                                                class="ti ti-pencil"></i></button>
+                                                        <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteTicketModal"
+                                                            onclick="deleteTicket('TKT-001', 'Early Bird - Member')"><i
+                                                                class="ti ti-trash text-danger"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>TKT-002</code></td>
+                                                    <td>ACCP Annual Conference 2026</td>
+                                                    <td><strong>Early Bird - Public</strong></td>
+                                                    <td><span class="badge bg-primary">Primary</span></td>
+                                                    <td>฿4,500</td>
+                                                    <td>150</td>
+                                                    <td>120</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="progress progress-sm flex-grow-1"
+                                                                style="width: 80px;">
+                                                                <div class="progress-bar bg-warning" style="width: 80%">
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-warning fw-semibold">30</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewTicketModal"
+                                                            onclick="viewTicket('TKT-002', 'ACCP Annual Conference 2026', 'Early Bird - Public', 'Primary', 4500, 150, 120, 'For public attendees registering during early bird period')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#editTicketModal"
+                                                            onclick="editTicket('TKT-002', 'Early Bird - Public', 'Primary', 4500, 150, 'For public attendees registering during early bird period')"><i
+                                                                class="ti ti-pencil"></i></button>
+                                                        <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteTicketModal"
+                                                            onclick="deleteTicket('TKT-002', 'Early Bird - Public')"><i
+                                                                class="ti ti-trash text-danger"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>TKT-003</code></td>
+                                                    <td>ACCP Annual Conference 2026</td>
+                                                    <td><strong>Workshop A - Drug Interaction</strong></td>
+                                                    <td><span class="badge bg-info">Add-on</span></td>
+                                                    <td>฿1,500</td>
+                                                    <td>50</td>
+                                                    <td>42</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="progress progress-sm flex-grow-1"
+                                                                style="width: 80px;">
+                                                                <div class="progress-bar bg-danger" style="width: 84%">
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-danger fw-semibold">8</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewTicketModal"
+                                                            onclick="viewTicket('TKT-003', 'ACCP Annual Conference 2026', 'Workshop A - Drug Interaction', 'Add-on', 1500, 50, 42, 'Hands-on workshop on drug interaction analysis')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#editTicketModal"
+                                                            onclick="editTicket('TKT-003', 'Workshop A - Drug Interaction', 'Add-on', 1500, 50, 'Hands-on workshop on drug interaction analysis')"><i
+                                                                class="ti ti-pencil"></i></button>
+                                                        <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteTicketModal"
+                                                            onclick="deleteTicket('TKT-003', 'Workshop A - Drug Interaction')"><i
+                                                                class="ti ti-trash text-danger"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><code>TKT-004</code></td>
+                                                    <td>ACCP Annual Conference 2026</td>
+                                                    <td><strong>Gala Dinner</strong></td>
+                                                    <td><span class="badge bg-info">Add-on</span></td>
+                                                    <td>฿2,000</td>
+                                                    <td>200</td>
+                                                    <td>150</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center gap-2">
+                                                            <div class="progress progress-sm flex-grow-1"
+                                                                style="width: 80px;">
+                                                                <div class="progress-bar bg-warning" style="width: 75%">
+                                                                </div>
+                                                            </div>
+                                                            <span class="text-warning fw-semibold">50</span>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewTicketModal"
+                                                            onclick="viewTicket('TKT-004', 'ACCP Annual Conference 2026', 'Gala Dinner', 'Add-on', 2000, 200, 150, 'Evening dinner event with entertainment')"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#editTicketModal"
+                                                            onclick="editTicket('TKT-004', 'Gala Dinner', 'Add-on', 2000, 200, 'Evening dinner event with entertainment')"><i
+                                                                class="ti ti-pencil"></i></button>
+                                                        <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                            data-bs-target="#deleteTicketModal"
+                                                            onclick="deleteTicket('TKT-004', 'Gala Dinner')"><i
+                                                                class="ti ti-trash text-danger"></i></button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View Ticket Modal -->
+                    <div class="modal fade" id="viewTicketModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Ticket Details</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table table-borderless mb-0">
+                                        <tr>
+                                            <td><strong>ID:</strong></td>
+                                            <td><code id="viewTktId"></code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Event:</strong></td>
+                                            <td id="viewTktEvent"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Name:</strong></td>
+                                            <td id="viewTktName"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Category:</strong></td>
+                                            <td id="viewTktCategory"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Price:</strong></td>
+                                            <td id="viewTktPrice" class="fw-bold text-success"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Quota:</strong></td>
+                                            <td id="viewTktQuota"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Sold:</strong></td>
+                                            <td id="viewTktSold"></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Description:</strong></td>
+                                            <td id="viewTktDesc"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Ticket Modal -->
+                    <div class="modal fade" id="addTicketModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-plus me-2"></i>Add Ticket Type</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="addTicketForm">
+                                        <div class="mb-3">
+                                            <label class="form-label">Event</label>
+                                            <select class="form-select" id="addTktEvent" required>
+                                                <option value="">Select event...</option>
+                                                <option value="1">ACCP Annual Conference 2026</option>
+                                                <option value="2">Medical Innovation Summit</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Ticket Name</label>
+                                            <input type="text" class="form-control" id="addTktName" required>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Category</label>
+                                                <select class="form-select" id="addTktCategory">
+                                                    <option value="Primary">Primary</option>
+                                                    <option value="Add-on">Add-on</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Price (฿)</label>
+                                                <input type="number" class="form-control" id="addTktPrice" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Quota</label>
+                                            <input type="number" class="form-control" id="addTktQuota" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea class="form-control" id="addTktDesc" rows="2"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="addTicket()">Add
+                                        Ticket</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Edit Ticket Modal -->
+                    <div class="modal fade" id="editTicketModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-pencil me-2"></i>Edit Ticket Type</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="editTicketForm">
+                                        <input type="hidden" id="editTktId">
+                                        <div class="mb-3">
+                                            <label class="form-label">Ticket Name</label>
+                                            <input type="text" class="form-control" id="editTktName">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Category</label>
+                                                <select class="form-select" id="editTktCategory">
+                                                    <option value="Primary">Primary</option>
+                                                    <option value="Add-on">Add-on</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Price (฿)</label>
+                                                <input type="number" class="form-control" id="editTktPrice">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Quota</label>
+                                            <input type="number" class="form-control" id="editTktQuota">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label">Description</label>
+                                            <textarea class="form-control" id="editTktDesc" rows="2"></textarea>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="saveTicket()">Save
+                                        Changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Delete Ticket Modal -->
+                    <div class="modal fade" id="deleteTicketModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title"><i class="ti ti-trash me-2"></i>Delete Ticket Type</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="ti ti-alert-triangle fs-48 text-danger mb-3"></i>
+                                    <p>Delete this ticket type?</p>
+                                    <p><strong id="deleteTktName"></strong></p>
+                                    <p class="text-muted fs-12">This will not affect existing registrations.</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-danger"
+                                        onclick="confirmDelete()">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Toast -->
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="successToast" class="toast">
+                            <div class="toast-header bg-success text-white"><i class="ti ti-check me-2"></i><strong
+                                    class="me-auto">Success</strong><button type="button"
+                                    class="btn-close btn-close-white" data-bs-dismiss="toast"></button></div>
+                            <div class="toast-body" id="toastMessage"></div>
+                        </div>
+                    </div>
+
+                </div><!-- End of mainPageContent -->
+
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        // Event Selector Toggle Logic
+                        var eventSelector = document.getElementById('eventContextSelector');
+                        var mainContent = document.getElementById('mainPageContent');
+                        var emptyState = document.getElementById('emptyState');
+
+                        function toggleEventContent() {
+                            var selectedEvent = eventSelector.value;
+                            if (selectedEvent) {
+                                mainContent.style.display = 'block';
+                                emptyState.style.display = 'none';
+                            } else {
+                                mainContent.style.display = 'none';
+                                emptyState.style.display = 'block';
+                            }
+                        }
+                        eventSelector.addEventListener('change', toggleEventContent);
+                        // Initial state based on default selection
+                        toggleEventContent();
+
+                        let currentTktId = '';
+
+                        function viewTicket(id, event, name, category, price, quota, sold, desc) {
+                            document.getElementById('viewTktId').textContent = id;
+                            document.getElementById('viewTktEvent').textContent = event;
+                            document.getElementById('viewTktName').textContent = name;
+                            const catClass = category === 'Primary' ? 'primary' : 'info';
+                            document.getElementById('viewTktCategory').innerHTML = '<span class="badge bg-' + catClass + '">' + category + '</span>';
+                            document.getElementById('viewTktPrice').textContent = '฿' + price.toLocaleString();
+                            document.getElementById('viewTktQuota').textContent = quota;
+                            document.getElementById('viewTktSold').textContent = sold + ' / ' + quota + ' (' + Math.round(sold / quota * 100) + '%)';
+                            document.getElementById('viewTktDesc').textContent = desc;
+                        }
+
+                        function editTicket(id, name, category, price, quota, desc) {
+                            currentTktId = id;
+                            document.getElementById('editTktId').value = id;
+                            document.getElementById('editTktName').value = name;
+                            document.getElementById('editTktCategory').value = category;
+                            document.getElementById('editTktPrice').value = price;
+                            document.getElementById('editTktQuota').value = quota;
+                            document.getElementById('editTktDesc').value = desc;
+                        }
+
+                        function addTicket() {
+                            bootstrap.Modal.getInstance(document.getElementById('addTicketModal')).hide();
+                            showToast('Ticket type added successfully!');
+                        }
+
+                        function saveTicket() {
+                            bootstrap.Modal.getInstance(document.getElementById('editTicketModal')).hide();
+                            showToast('Ticket type updated successfully!');
+                        }
+
+                        function deleteTicket(id, name) {
+                            currentTktId = id;
+                            document.getElementById('deleteTktName').textContent = name + ' (' + id + ')';
+                        }
+
+                        function confirmDelete() {
+                            bootstrap.Modal.getInstance(document.getElementById('deleteTicketModal')).hide();
+                            showToast('Ticket type deleted.');
+                        }
+
+                        function showToast(msg) {
+                            document.getElementById('toastMessage').textContent = msg;
+                            new bootstrap.Toast(document.getElementById('successToast')).show();
+                        }
+                    </script>

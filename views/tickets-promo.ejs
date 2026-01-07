@@ -1,0 +1,429 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Conference' , title: 'Promo Codes' }) %>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="header-title">Promo Codes Management</h4>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addPromoModal">
+                                    <i class="ti ti-plus me-1"></i> Create Promo Code
+                                </button>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-centered table-nowrap mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Code</th>
+                                                <th>Event</th>
+                                                <th>Discount</th>
+                                                <th>Usage</th>
+                                                <th>Valid Period</th>
+                                                <th>Status</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code class="fs-14">EARLYBIRD20</code></td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span class="badge bg-success fs-12">20% OFF</span></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span>45 / 100</span>
+                                                        <div class="progress progress-sm flex-grow-1"
+                                                            style="width: 60px;">
+                                                            <div class="progress-bar bg-success" style="width: 45%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Jan 1 - Feb 28, 2026</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewPromoModal"
+                                                        onclick="viewPromo('EARLYBIRD20', 'ACCP Annual Conference 2026', 'percentage', 20, 100, 45, '2026-01-01', '2026-02-28', 'Active')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#editPromoModal"
+                                                        onclick="editPromo('EARLYBIRD20', 'percentage', 20, 100, '2026-01-01', '2026-02-28')"><i
+                                                            class="ti ti-pencil"></i></button>
+                                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#deletePromoModal"
+                                                        onclick="deletePromo('EARLYBIRD20')"><i
+                                                            class="ti ti-trash text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code class="fs-14">MEMBER500</code></td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span class="badge bg-info fs-12">฿500 OFF</span></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span>78 / 200</span>
+                                                        <div class="progress progress-sm flex-grow-1"
+                                                            style="width: 60px;">
+                                                            <div class="progress-bar bg-success" style="width: 39%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Jan 1 - Mar 15, 2026</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewPromoModal"
+                                                        onclick="viewPromo('MEMBER500', 'ACCP Annual Conference 2026', 'fixed', 500, 200, 78, '2026-01-01', '2026-03-15', 'Active')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#editPromoModal"
+                                                        onclick="editPromo('MEMBER500', 'fixed', 500, 200, '2026-01-01', '2026-03-15')"><i
+                                                            class="ti ti-pencil"></i></button>
+                                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#deletePromoModal"
+                                                        onclick="deletePromo('MEMBER500')"><i
+                                                            class="ti ti-trash text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code class="fs-14">VIP2026</code></td>
+                                                <td>Medical Innovation Summit</td>
+                                                <td><span class="badge bg-success fs-12">30% OFF</span></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span>10 / 10</span>
+                                                        <div class="progress progress-sm flex-grow-1"
+                                                            style="width: 60px;">
+                                                            <div class="progress-bar bg-danger" style="width: 100%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Jan 1 - Apr 20, 2026</td>
+                                                <td><span class="badge bg-secondary">Exhausted</span></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewPromoModal"
+                                                        onclick="viewPromo('VIP2026', 'Medical Innovation Summit', 'percentage', 30, 10, 10, '2026-01-01', '2026-04-20', 'Exhausted')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#editPromoModal"
+                                                        onclick="editPromo('VIP2026', 'percentage', 30, 10, '2026-01-01', '2026-04-20')"><i
+                                                            class="ti ti-pencil"></i></button>
+                                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#deletePromoModal"
+                                                        onclick="deletePromo('VIP2026')"><i
+                                                            class="ti ti-trash text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code class="fs-14">SPEAKER100</code></td>
+                                                <td>All Events</td>
+                                                <td><span class="badge bg-primary fs-12">100% OFF</span></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span>5 / 20</span>
+                                                        <div class="progress progress-sm flex-grow-1"
+                                                            style="width: 60px;">
+                                                            <div class="progress-bar bg-success" style="width: 25%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Jan 1 - Dec 31, 2026</td>
+                                                <td><span class="badge bg-success">Active</span></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewPromoModal"
+                                                        onclick="viewPromo('SPEAKER100', 'All Events', 'percentage', 100, 20, 5, '2026-01-01', '2026-12-31', 'Active')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#editPromoModal"
+                                                        onclick="editPromo('SPEAKER100', 'percentage', 100, 20, '2026-01-01', '2026-12-31')"><i
+                                                            class="ti ti-pencil"></i></button>
+                                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#deletePromoModal"
+                                                        onclick="deletePromo('SPEAKER100')"><i
+                                                            class="ti ti-trash text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code class="fs-14">HOLIDAY2025</code></td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span class="badge bg-success fs-12">15% OFF</span></td>
+                                                <td>
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span>32 / 50</span>
+                                                        <div class="progress progress-sm flex-grow-1"
+                                                            style="width: 60px;">
+                                                            <div class="progress-bar bg-warning" style="width: 64%">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>Dec 20 - Dec 31, 2025</td>
+                                                <td><span class="badge bg-danger">Expired</span></td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewPromoModal"
+                                                        onclick="viewPromo('HOLIDAY2025', 'ACCP Annual Conference 2026', 'percentage', 15, 50, 32, '2025-12-20', '2025-12-31', 'Expired')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1 disabled"><i
+                                                            class="ti ti-pencil"></i></button>
+                                                    <button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                        data-bs-target="#deletePromoModal"
+                                                        onclick="deletePromo('HOLIDAY2025')"><i
+                                                            class="ti ti-trash text-danger"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Promo Modal -->
+                <div class="modal fade" id="viewPromoModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Promo Code Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table table-borderless mb-0">
+                                    <tr>
+                                        <td><strong>Code:</strong></td>
+                                        <td><code id="viewPromoCode" class="fs-14"></code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Event:</strong></td>
+                                        <td id="viewPromoEvent"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Discount:</strong></td>
+                                        <td id="viewPromoDiscount" class="fw-bold"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Usage:</strong></td>
+                                        <td id="viewPromoUsage"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Valid From:</strong></td>
+                                        <td id="viewPromoStart"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Valid Until:</strong></td>
+                                        <td id="viewPromoEnd"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Status:</strong></td>
+                                        <td id="viewPromoStatus"></td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Promo Modal -->
+                <div class="modal fade" id="addPromoModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="ti ti-plus me-2"></i>Create Promo Code</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="addPromoForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Promo Code</label>
+                                        <input type="text" class="form-control text-uppercase" id="addPromoCode"
+                                            placeholder="e.g., SUMMER2026" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Event</label>
+                                        <select class="form-select" id="addPromoEvent">
+                                            <option value="">All Events</option>
+                                            <option value="1">ACCP Annual Conference 2026</option>
+                                            <option value="2">Medical Innovation Summit</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Discount Type</label>
+                                            <select class="form-select" id="addPromoType">
+                                                <option value="percentage">Percentage (%)</option>
+                                                <option value="fixed">Fixed Amount (฿)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Discount Value</label>
+                                            <input type="number" class="form-control" id="addPromoValue" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Usage Limit</label>
+                                        <input type="number" class="form-control" id="addPromoLimit" value="100">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Start Date</label>
+                                            <input type="date" class="form-control" id="addPromoStart" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">End Date</label>
+                                            <input type="date" class="form-control" id="addPromoEnd" required>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" onclick="addPromo()">Create Promo
+                                    Code</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Edit Promo Modal -->
+                <div class="modal fade" id="editPromoModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="ti ti-pencil me-2"></i>Edit Promo Code</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="editPromoForm">
+                                    <input type="hidden" id="editPromoCode">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Discount Type</label>
+                                            <select class="form-select" id="editPromoType">
+                                                <option value="percentage">Percentage (%)</option>
+                                                <option value="fixed">Fixed Amount (฿)</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Discount Value</label>
+                                            <input type="number" class="form-control" id="editPromoValue">
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Usage Limit</label>
+                                        <input type="number" class="form-control" id="editPromoLimit">
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Start Date</label>
+                                            <input type="date" class="form-control" id="editPromoStart">
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">End Date</label>
+                                            <input type="date" class="form-control" id="editPromoEnd">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary" onclick="savePromo()">Save
+                                    Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delete Promo Modal -->
+                <div class="modal fade" id="deletePromoModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title"><i class="ti ti-trash me-2"></i>Delete Promo Code</h5>
+                                <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="ti ti-alert-triangle fs-48 text-danger mb-3"></i>
+                                <p>Delete this promo code?</p>
+                                <p><code id="deletePromoCode" class="fs-14"></code></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmDelete()">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toast -->
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="successToast" class="toast">
+                        <div class="toast-header bg-success text-white"><i class="ti ti-check me-2"></i><strong
+                                class="me-auto">Success</strong><button type="button" class="btn-close btn-close-white"
+                                data-bs-dismiss="toast"></button></div>
+                        <div class="toast-body" id="toastMessage"></div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        let currentCode = '';
+
+                        function viewPromo(code, event, type, value, limit, used, start, end, status) {
+                            document.getElementById('viewPromoCode').textContent = code;
+                            document.getElementById('viewPromoEvent').textContent = event;
+                            document.getElementById('viewPromoDiscount').textContent = type === 'percentage' ? value + '% OFF' : '฿' + value + ' OFF';
+                            document.getElementById('viewPromoUsage').textContent = used + ' / ' + limit + ' used';
+                            document.getElementById('viewPromoStart').textContent = start;
+                            document.getElementById('viewPromoEnd').textContent = end;
+                            const statusClass = status === 'Active' ? 'success' : status === 'Exhausted' ? 'secondary' : 'danger';
+                            document.getElementById('viewPromoStatus').innerHTML = '<span class="badge bg-' + statusClass + '">' + status + '</span>';
+                        }
+
+                        function editPromo(code, type, value, limit, start, end) {
+                            currentCode = code;
+                            document.getElementById('editPromoCode').value = code;
+                            document.getElementById('editPromoType').value = type;
+                            document.getElementById('editPromoValue').value = value;
+                            document.getElementById('editPromoLimit').value = limit;
+                            document.getElementById('editPromoStart').value = start;
+                            document.getElementById('editPromoEnd').value = end;
+                        }
+
+                        function addPromo() {
+                            bootstrap.Modal.getInstance(document.getElementById('addPromoModal')).hide();
+                            showToast('Promo code created successfully!');
+                        }
+
+                        function savePromo() {
+                            bootstrap.Modal.getInstance(document.getElementById('editPromoModal')).hide();
+                            showToast('Promo code updated successfully!');
+                        }
+
+                        function deletePromo(code) {
+                            currentCode = code;
+                            document.getElementById('deletePromoCode').textContent = code;
+                        }
+
+                        function confirmDelete() {
+                            bootstrap.Modal.getInstance(document.getElementById('deletePromoModal')).hide();
+                            showToast('Promo code deleted.');
+                        }
+
+                        function showToast(msg) {
+                            document.getElementById('toastMessage').textContent = msg;
+                            new bootstrap.Toast(document.getElementById('successToast')).show();
+                        }
+                    </script>

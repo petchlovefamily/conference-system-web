@@ -1,0 +1,151 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Developer' , title: 'API Documentation' }) %>
+
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Endpoints</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="list-group list-group-flush">
+                                    <a href="#auth" class="list-group-item list-group-item-action">Authentication</a>
+                                    <a href="#events" class="list-group-item list-group-item-action active">Events</a>
+                                    <a href="#tickets" class="list-group-item list-group-item-action">Ticket Types</a>
+                                    <a href="#registrations"
+                                        class="list-group-item list-group-item-action">Registrations</a>
+                                    <a href="#payments" class="list-group-item list-group-item-action">Payments</a>
+                                    <a href="#abstracts" class="list-group-item list-group-item-action">Abstracts</a>
+                                    <a href="#users" class="list-group-item list-group-item-action">Users</a>
+                                    <a href="#webhooks" class="list-group-item list-group-item-action">Webhooks</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="header-title mb-0">Conference Management API v1.0</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="alert alert-info">
+                                    <strong>Base URL:</strong> <code>https://api.conference.com/v1</code>
+                                </div>
+
+                                <h5 id="events" class="mt-4">Events</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Method</th>
+                                                <th>Endpoint</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/events</code></td>
+                                                <td>List all events</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/events/:id</code></td>
+                                                <td>Get event by ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-primary">POST</span></td>
+                                                <td><code>/events</code></td>
+                                                <td>Create new event</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-warning">PUT</span></td>
+                                                <td><code>/events/:id</code></td>
+                                                <td>Update event</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-danger">DELETE</span></td>
+                                                <td><code>/events/:id</code></td>
+                                                <td>Delete event</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h5 id="registrations" class="mt-4">Registrations</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Method</th>
+                                                <th>Endpoint</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/registrations</code></td>
+                                                <td>List all registrations</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/registrations/:id</code></td>
+                                                <td>Get registration by ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-primary">POST</span></td>
+                                                <td><code>/registrations</code></td>
+                                                <td>Create new registration</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-warning">PATCH</span></td>
+                                                <td><code>/registrations/:id/checkin</code></td>
+                                                <td>Check in attendee</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <h5 id="payments" class="mt-4">Payments</h5>
+                                <div class="table-responsive">
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Method</th>
+                                                <th>Endpoint</th>
+                                                <th>Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/payments</code></td>
+                                                <td>List all payments</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/payments/:id</code></td>
+                                                <td>Get payment by ID</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-primary">POST</span></td>
+                                                <td><code>/payments/create-intent</code></td>
+                                                <td>Create Stripe PaymentIntent</td>
+                                            </tr>
+                                            <tr>
+                                                <td><span class="badge bg-success">GET</span></td>
+                                                <td><code>/payments/verify/:id</code></td>
+                                                <td>Verify payment status</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>

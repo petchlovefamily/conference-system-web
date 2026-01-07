@@ -1,0 +1,482 @@
+<%- contentFor('html_attribute') %> <%- contentFor('extra_css') %> <%- contentFor('content') %>
+
+            <!-- Page Title -->
+            <%- include('partials/page-title', {subtitle: 'Conference' , title: 'Abstract Submissions' }) %>
+
+                <!-- Stats Cards -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-md bg-primary-subtle rounded">
+                                        <i class="ti ti-file-text fs-24 text-primary avatar-title"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="mb-0">45</h4>
+                                        <p class="text-muted mb-0">Total Submissions</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-md bg-warning-subtle rounded">
+                                        <i class="ti ti-clock fs-24 text-warning avatar-title"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="mb-0">15</h4>
+                                        <p class="text-muted mb-0">Pending Review</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-md bg-success-subtle rounded">
+                                        <i class="ti ti-check fs-24 text-success avatar-title"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="mb-0">25</h4>
+                                        <p class="text-muted mb-0">Approved</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-md bg-danger-subtle rounded">
+                                        <i class="ti ti-x fs-24 text-danger avatar-title"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 class="mb-0">5</h4>
+                                        <p class="text-muted mb-0">Rejected</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h4 class="header-title">Abstract Submissions</h4>
+                                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#exportModal"><i
+                                        class="ti ti-download me-1"></i> Export</button>
+                            </div>
+                            <div class="card-body">
+                                <!-- Filters -->
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <select class="form-select" id="eventFilter">
+                                            <option value="">All Events</option>
+                                            <option value="1">ACCP Annual Conference 2026</option>
+                                            <option value="2">Medical Innovation Summit</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" id="statusFilter">
+                                            <option value="">All Status</option>
+                                            <option value="pending">Pending</option>
+                                            <option value="approved">Approved</option>
+                                            <option value="rejected">Rejected</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <select class="form-select" id="topicFilter">
+                                            <option value="">All Topics</option>
+                                            <option value="clinical">Clinical Pharmacy</option>
+                                            <option value="research">Research</option>
+                                            <option value="education">Education</option>
+                                            <option value="technology">Technology</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control"
+                                            placeholder="Search by title or author..." id="searchInput">
+                                    </div>
+                                </div>
+
+                                <div class="table-responsive">
+                                    <table class="table table-centered mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th style="min-width: 300px;">Title & Author</th>
+                                                <th>Event</th>
+                                                <th>Topic</th>
+                                                <th>Status</th>
+                                                <th>Submitted</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><code>ABS-001</code></td>
+                                                <td>
+                                                    <h5 class="mb-1 fs-14">Impact of Clinical Pharmacist Intervention on
+                                                        Medication Adherence in Diabetic Patients</h5>
+                                                    <span class="text-muted fs-12">Dr. Somchai Jaidee, Department of
+                                                        Clinical Pharmacy</span>
+                                                </td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span class="badge bg-primary-subtle text-primary">Clinical
+                                                        Pharmacy</span></td>
+                                                <td><span class="badge bg-warning">Pending</span></td>
+                                                <td>Jan 5, 2026</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewAbstractModal"
+                                                        onclick="viewAbstract('ABS-001', 'Impact of Clinical Pharmacist Intervention on Medication Adherence in Diabetic Patients', 'Dr. Somchai Jaidee', 'Department of Clinical Pharmacy', 'ACCP Annual Conference 2026', 'Clinical Pharmacy', 'Pending', 'Jan 5, 2026', 'This study examines the impact of clinical pharmacist intervention on medication adherence in diabetic patients. A randomized controlled trial was conducted with 200 participants over 6 months.')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#approveModal"
+                                                        onclick="approveAbstract('ABS-001', 'Impact of Clinical Pharmacist Intervention...')"><i
+                                                            class="ti ti-check"></i></button>
+                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#rejectModal"
+                                                        onclick="rejectAbstract('ABS-001', 'Impact of Clinical Pharmacist Intervention...')"><i
+                                                            class="ti ti-x"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ABS-002</code></td>
+                                                <td>
+                                                    <h5 class="mb-1 fs-14">Machine Learning Approach for Drug-Drug
+                                                        Interaction Prediction</h5>
+                                                    <span class="text-muted fs-12">Nattaporn Srisuk, Faculty of
+                                                        Pharmaceutical Sciences</span>
+                                                </td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span class="badge bg-info-subtle text-info">Technology</span></td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                                <td>Jan 3, 2026</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewAbstractModal"
+                                                        onclick="viewAbstract('ABS-002', 'Machine Learning Approach for Drug-Drug Interaction Prediction', 'Nattaporn Srisuk', 'Faculty of Pharmaceutical Sciences', 'ACCP Annual Conference 2026', 'Technology', 'Approved', 'Jan 3, 2026', 'We present a novel machine learning model for predicting drug-drug interactions based on molecular structure analysis and patient data.')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1 disabled"><i
+                                                            class="ti ti-check"></i></button>
+                                                    <button class="btn btn-sm btn-light disabled"><i
+                                                            class="ti ti-x"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ABS-003</code></td>
+                                                <td>
+                                                    <h5 class="mb-1 fs-14">Novel Teaching Methods for Pharmacy Students:
+                                                        A Comparative Study</h5>
+                                                    <span class="text-muted fs-12">Dr. Wichai Tanaka, Medical Education
+                                                        Center</span>
+                                                </td>
+                                                <td>Medical Innovation Summit</td>
+                                                <td><span class="badge bg-success-subtle text-success">Education</span>
+                                                </td>
+                                                <td><span class="badge bg-success">Approved</span></td>
+                                                <td>Dec 28, 2025</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewAbstractModal"
+                                                        onclick="viewAbstract('ABS-003', 'Novel Teaching Methods for Pharmacy Students: A Comparative Study', 'Dr. Wichai Tanaka', 'Medical Education Center', 'Medical Innovation Summit', 'Education', 'Approved', 'Dec 28, 2025', 'This comparative study evaluates the effectiveness of problem-based learning versus traditional lecture methods in pharmacy education.')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1 disabled"><i
+                                                            class="ti ti-check"></i></button>
+                                                    <button class="btn btn-sm btn-light disabled"><i
+                                                            class="ti ti-x"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ABS-004</code></td>
+                                                <td>
+                                                    <h5 class="mb-1 fs-14">Antimicrobial Resistance Patterns in Hospital
+                                                        Settings: A 5-Year Review</h5>
+                                                    <span class="text-muted fs-12">Supaporn Chai, Infectious Disease
+                                                        Unit</span>
+                                                </td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span
+                                                        class="badge bg-secondary-subtle text-secondary">Research</span>
+                                                </td>
+                                                <td><span class="badge bg-danger">Rejected</span></td>
+                                                <td>Jan 1, 2026</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewAbstractModal"
+                                                        onclick="viewAbstract('ABS-004', 'Antimicrobial Resistance Patterns in Hospital Settings: A 5-Year Review', 'Supaporn Chai', 'Infectious Disease Unit', 'ACCP Annual Conference 2026', 'Research', 'Rejected', 'Jan 1, 2026', 'A retrospective analysis of antimicrobial resistance patterns in a tertiary care hospital over 5 years.')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-light me-1 disabled"><i
+                                                            class="ti ti-check"></i></button>
+                                                    <button class="btn btn-sm btn-light disabled"><i
+                                                            class="ti ti-x"></i></button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><code>ABS-005</code></td>
+                                                <td>
+                                                    <h5 class="mb-1 fs-14">Cost-Effectiveness Analysis of Biologic
+                                                        Therapies in Rheumatoid Arthritis</h5>
+                                                    <span class="text-muted fs-12">Piyapong Suwannee, Pharmacoeconomics
+                                                        Department</span>
+                                                </td>
+                                                <td>ACCP Annual Conference 2026</td>
+                                                <td><span
+                                                        class="badge bg-secondary-subtle text-secondary">Research</span>
+                                                </td>
+                                                <td><span class="badge bg-warning">Pending</span></td>
+                                                <td>Jan 6, 2026</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#viewAbstractModal"
+                                                        onclick="viewAbstract('ABS-005', 'Cost-Effectiveness Analysis of Biologic Therapies in Rheumatoid Arthritis', 'Piyapong Suwannee', 'Pharmacoeconomics Department', 'ACCP Annual Conference 2026', 'Research', 'Pending', 'Jan 6, 2026', 'Pharmacoeconomic evaluation comparing biologic therapies for rheumatoid arthritis treatment in Thai healthcare setting.')"><i
+                                                            class="ti ti-eye"></i></button>
+                                                    <button class="btn btn-sm btn-success me-1" data-bs-toggle="modal"
+                                                        data-bs-target="#approveModal"
+                                                        onclick="approveAbstract('ABS-005', 'Cost-Effectiveness Analysis of Biologic Therapies...')"><i
+                                                            class="ti ti-check"></i></button>
+                                                    <button class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                                                        data-bs-target="#rejectModal"
+                                                        onclick="rejectAbstract('ABS-005', 'Cost-Effectiveness Analysis of Biologic Therapies...')"><i
+                                                            class="ti ti-x"></i></button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted">Showing <b>1-5</b> of <b>45</b> abstracts</div>
+                                    <nav>
+                                        <ul class="pagination pagination-sm mb-0">
+                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
+                                            </li>
+                                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View Abstract Modal -->
+                <div class="modal fade" id="viewAbstractModal" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Abstract Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <span class="badge bg-light text-dark" id="viewAbsId"></span>
+                                    <span class="badge" id="viewAbsStatus"></span>
+                                </div>
+                                <h5 id="viewAbsTitle"></h5>
+                                <p class="text-muted mb-3"><strong id="viewAbsAuthor"></strong>, <span
+                                        id="viewAbsAffiliation"></span></p>
+                                <div class="row mb-3">
+                                    <div class="col-md-4"><strong>Event:</strong> <span id="viewAbsEvent"></span></div>
+                                    <div class="col-md-4"><strong>Topic:</strong> <span id="viewAbsTopic"></span></div>
+                                    <div class="col-md-4"><strong>Submitted:</strong> <span id="viewAbsDate"></span>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h6>Abstract:</h6>
+                                <p id="viewAbsContent" class="text-muted"></p>
+                                <a href="#" class="btn btn-sm btn-outline-primary"><i class="ti ti-download me-1"></i>
+                                    Download Full PDF</a>
+                            </div>
+                            <div class="modal-footer" id="viewAbsFooter">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Approve Modal -->
+                <div class="modal fade" id="approveModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-success text-white">
+                                <h5 class="modal-title"><i class="ti ti-check me-2"></i>Approve Abstract</h5>
+                                <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="ti ti-circle-check fs-48 text-success mb-3"></i>
+                                <p>Approve this abstract for presentation?</p>
+                                <p><strong id="approveTitle"></strong></p>
+                                <div class="mb-3">
+                                    <label class="form-label">Presentation Type</label>
+                                    <select class="form-select" id="presentationType">
+                                        <option value="oral">Oral Presentation</option>
+                                        <option value="poster">Poster Presentation</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Reviewer Comments (optional)</label>
+                                    <textarea class="form-control" id="approveComments" rows="2"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-success" onclick="confirmApprove()"><i
+                                        class="ti ti-check me-1"></i> Approve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reject Modal -->
+                <div class="modal fade" id="rejectModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title"><i class="ti ti-x me-2"></i>Reject Abstract</h5>
+                                <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <i class="ti ti-circle-x fs-48 text-danger mb-3"></i>
+                                <p>Reject this abstract?</p>
+                                <p><strong id="rejectTitle"></strong></p>
+                                <div class="mb-3 text-start">
+                                    <label class="form-label">Rejection Reason <span
+                                            class="text-danger">*</span></label>
+                                    <select class="form-select mb-2" id="rejectReason">
+                                        <option value="">Select reason...</option>
+                                        <option value="scope">Out of scope</option>
+                                        <option value="quality">Quality concerns</option>
+                                        <option value="duplicate">Duplicate submission</option>
+                                        <option value="incomplete">Incomplete information</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                    <textarea class="form-control" id="rejectComments" rows="2"
+                                        placeholder="Additional comments..."></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger" onclick="confirmReject()"><i
+                                        class="ti ti-x me-1"></i> Reject</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Modal -->
+                <div class="modal fade" id="exportModal" tabindex="-1">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"><i class="ti ti-download me-2"></i>Export Abstracts</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select">
+                                        <option value="all">All Abstracts</option>
+                                        <option value="approved">Approved Only</option>
+                                        <option value="pending">Pending Only</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Format</label>
+                                    <select class="form-select">
+                                        <option value="excel">Excel</option>
+                                        <option value="pdf">PDF</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary"
+                                    onclick="exportAbstracts()">Export</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Toast -->
+                <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                    <div id="successToast" class="toast">
+                        <div class="toast-header bg-success text-white"><i class="ti ti-check me-2"></i><strong
+                                class="me-auto">Success</strong><button type="button" class="btn-close btn-close-white"
+                                data-bs-dismiss="toast"></button></div>
+                        <div class="toast-body" id="toastMessage"></div>
+                    </div>
+                </div>
+
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        let currentAbsId = '';
+
+                        function viewAbstract(id, title, author, affiliation, event, topic, status, date, content) {
+                            document.getElementById('viewAbsId').textContent = id;
+                            document.getElementById('viewAbsTitle').textContent = title;
+                            document.getElementById('viewAbsAuthor').textContent = author;
+                            document.getElementById('viewAbsAffiliation').textContent = affiliation;
+                            document.getElementById('viewAbsEvent').textContent = event;
+                            document.getElementById('viewAbsTopic').textContent = topic;
+                            document.getElementById('viewAbsDate').textContent = date;
+                            document.getElementById('viewAbsContent').textContent = content;
+                            const statusClass = status === 'Approved' ? 'bg-success' : status === 'Pending' ? 'bg-warning' : 'bg-danger';
+                            document.getElementById('viewAbsStatus').className = 'badge ' + statusClass;
+                            document.getElementById('viewAbsStatus').textContent = status;
+
+                            // Show/hide approve/reject buttons based on status
+                            const footer = document.getElementById('viewAbsFooter');
+                            if (status === 'Pending') {
+                                footer.innerHTML = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>' +
+                                    '<button type="button" class="btn btn-success" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#approveModal" onclick="approveAbstract(\'' + id + '\', \'' + title.substring(0, 40) + '...\')"><i class="ti ti-check me-1"></i> Approve</button>' +
+                                    '<button type="button" class="btn btn-danger" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#rejectModal" onclick="rejectAbstract(\'' + id + '\', \'' + title.substring(0, 40) + '...\')"><i class="ti ti-x me-1"></i> Reject</button>';
+                            } else {
+                                footer.innerHTML = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>';
+                            }
+                        }
+
+                        function approveAbstract(id, title) {
+                            currentAbsId = id;
+                            document.getElementById('approveTitle').textContent = title;
+                        }
+
+                        function confirmApprove() {
+                            bootstrap.Modal.getInstance(document.getElementById('approveModal')).hide();
+                            showToast('Abstract approved successfully! Notification sent to author.');
+                        }
+
+                        function rejectAbstract(id, title) {
+                            currentAbsId = id;
+                            document.getElementById('rejectTitle').textContent = title;
+                        }
+
+                        function confirmReject() {
+                            bootstrap.Modal.getInstance(document.getElementById('rejectModal')).hide();
+                            showToast('Abstract rejected. Notification sent to author.');
+                        }
+
+                        function exportAbstracts() {
+                            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+                            showToast('Export started!');
+                        }
+
+                        function showToast(msg) {
+                            document.getElementById('toastMessage').textContent = msg;
+                            new bootstrap.Toast(document.getElementById('successToast')).show();
+                        }
+                    </script>
