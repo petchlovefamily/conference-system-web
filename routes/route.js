@@ -4,8 +4,10 @@ const { authenticate, requireAuth, requireRole, getHomePageForRole, canAccessRou
 
 // Login Page
 route.get('/login', (req, res) => {
-  if (req.session && req.session.user) {
-    return res.redirect(getHomePageForRole(req.session.user.role));
+  if ((req.session && req.session.user) || (req.cookies && req.cookies.auth_token)) {
+    // Determine role from session or cookie for redirect
+    const user = req.session.user || JSON.parse(req.cookies.auth_token);
+    return res.redirect(getHomePageForRole(user.role));
   }
   res.render('auth-login', { title: 'Login', layout: false, error: null });
 });
@@ -17,6 +19,8 @@ route.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 
   if (user) {
     req.session.user = user;
+    // Set persistent cookie for Vercel
+    res.cookie('auth_token', JSON.stringify(user), { maxAge: 24 * 60 * 60 * 1000, httpOnly: true });
     res.redirect(getHomePageForRole(user.role));
   } else {
     res.render('auth-login', { title: 'Login', layout: false, error: 'Invalid username or password' });
@@ -26,16 +30,32 @@ route.post('/login', express.urlencoded({ extended: true }), (req, res) => {
 // Logout
 route.get('/logout', (req, res) => {
   req.session.destroy();
+  res.clearCookie('auth_token');
   res.redirect('/login');
 });
 
 // Auth middleware - apply to all routes below
 route.use((req, res, next) => {
-  if (!req.session || !req.session.user) {
-    return res.redirect('/login');
+  // Check session first, then cookie (for Vercel persistence)
+  if (req.session && req.session.user) {
+    res.locals.user = req.session.user;
+    return next();
   }
-  res.locals.user = req.session.user;
-  next();
+
+  if (req.cookies && req.cookies.auth_token) {
+    try {
+      // Restore session from cookie
+      const user = JSON.parse(req.cookies.auth_token);
+      req.session.user = user;
+      res.locals.user = user;
+      return next();
+    } catch (e) {
+      // Invalid cookie, clear it
+      res.clearCookie('auth_token');
+    }
+  }
+
+  return res.redirect('/login');
 });
 
 route.get('/', (req, res, next) => {
