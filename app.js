@@ -12,6 +12,8 @@ dotenv.config({ path: "./config.env" });
 
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
+// Trust proxy is required for Vercel/Heroku to handle secure cookies correctly
+app.set('trust proxy', 1);
 app.use(upload());
 
 app.use(express.json());

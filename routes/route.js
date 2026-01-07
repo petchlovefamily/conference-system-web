@@ -20,11 +20,13 @@ route.post('/login', express.urlencoded({ extended: true }), (req, res) => {
   if (user) {
     req.session.user = user;
     // Set persistent cookie for Vercel
-    res.cookie('auth_token', JSON.stringify(user), {
+    // Simplify user object for cookie to reduce size
+    const cookieUser = { id: user.id, username: user.username, role: user.role, name: user.name };
+    res.cookie('auth_token', JSON.stringify(cookieUser), {
       maxAge: 24 * 60 * 60 * 1000,
       httpOnly: true,
       secure: true, // Required for Vercel HTTPS
-      sameSite: 'lax'
+      sameSite: 'lax' // 'lax' preferred over 'none' for most navigation top-level
     });
     res.redirect(getHomePageForRole(user.role));
   } else {
