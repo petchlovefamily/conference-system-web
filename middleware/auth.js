@@ -2,10 +2,10 @@
 
 // Mock users for demo (in production, use database)
 const mockUsers = {
-    admin: { id: 1, username: 'admin', password: 'admin123', name: 'Administrator', role: 'admin' },
-    organizer: { id: 2, username: 'organizer', password: 'org123', name: 'Event Organizer', role: 'organizer' },
-    staff: { id: 3, username: 'staff', password: 'staff123', name: 'Check-in Staff', role: 'staff' },
-    reviewer: { id: 4, username: 'reviewer', password: 'rev123', name: 'Abstract Reviewer', role: 'reviewer' }
+    admin: { id: 1, username: 'admin', password: process.env.ADMIN_PASSWORD || 'admin123', name: 'Administrator', role: 'admin' },
+    organizer: { id: 2, username: 'organizer', password: process.env.ORGANIZER_PASSWORD || 'org123', name: 'Event Organizer', role: 'organizer' },
+    staff: { id: 3, username: 'staff', password: process.env.STAFF_PASSWORD || 'staff123', name: 'Check-in Staff', role: 'staff' },
+    reviewer: { id: 4, username: 'reviewer', password: process.env.REVIEWER_PASSWORD || 'rev123', name: 'Abstract Reviewer', role: 'reviewer' }
 };
 
 // Role-based access definitions
