@@ -433,114 +433,263 @@
             font-weight: 600;
         }
 
-        /* Result Overlay */
-        .result-overlay {
+        /* ========== RESULT MODAL ========== */
+        .result-modal-backdrop {
             position: fixed;
             inset: 0;
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-        }
-
-        .result-overlay.show {
-            display: flex;
-        }
-
-        .result-overlay.success {
-            background: rgba(10, 207, 151, 0.95);
-        }
-
-        .result-overlay.warning {
-            background: rgba(255, 188, 0, 0.95);
-        }
-
-        .result-overlay.error {
-            background: rgba(250, 92, 124, 0.95);
-        }
-
-        .result-overlay.no-access {
-            background: rgba(108, 117, 125, 0.95);
-        }
-
-        .result-content {
-            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 1.5rem;
-            animation: popIn 0.3s ease;
         }
 
-        @keyframes popIn {
+        .result-modal-backdrop.show {
+            display: flex;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
             from {
-                transform: scale(0.8);
                 opacity: 0;
             }
 
             to {
-                transform: scale(1);
                 opacity: 1;
             }
         }
 
+        .result-modal {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem 1.5rem 1.5rem;
+            width: 100%;
+            max-width: 320px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            animation: modalSlideUp 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                transform: translateY(30px) scale(0.95);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Status Header Bar */
+        .result-modal .status-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+        }
+
+        .result-modal.success .status-bar {
+            background: linear-gradient(90deg, #0acf97 0%, #059669 100%);
+        }
+
+        .result-modal.warning .status-bar {
+            background: linear-gradient(90deg, #ffbc00 0%, #f59e0b 100%);
+        }
+
+        .result-modal.error .status-bar {
+            background: linear-gradient(90deg, #fa5c7c 0%, #dc3545 100%);
+        }
+
+        .result-modal.no-access .status-bar {
+            background: linear-gradient(90deg, #6c757d 0%, #495057 100%);
+        }
+
+        /* Icon Circle */
+        .result-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            animation: iconPop 0.4s ease 0.1s both;
+        }
+
+        @keyframes iconPop {
+            0% {
+                transform: scale(0);
+            }
+
+            60% {
+                transform: scale(1.15);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .result-modal.success .result-icon-wrapper {
+            background: linear-gradient(135deg, #0acf97 0%, #059669 100%);
+        }
+
+        .result-modal.warning .result-icon-wrapper {
+            background: linear-gradient(135deg, #ffbc00 0%, #f59e0b 100%);
+        }
+
+        .result-modal.error .result-icon-wrapper {
+            background: linear-gradient(135deg, #fa5c7c 0%, #dc3545 100%);
+        }
+
+        .result-modal.no-access .result-icon-wrapper {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
         .result-icon {
-            font-size: 64px;
-            margin-bottom: 0.75rem;
+            font-size: 48px;
+            color: white;
+        }
+
+        /* Success checkmark animation */
+        .result-modal.success .result-icon {
+            animation: checkBounce 0.5s ease 0.2s both;
+        }
+
+        @keyframes checkBounce {
+            0% {
+                transform: scale(0) rotate(-45deg);
+            }
+
+            50% {
+                transform: scale(1.2) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+            }
         }
 
         .result-title {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
+            color: #1a1a2e;
+        }
+
+        .result-modal.success .result-title {
+            color: #059669;
+        }
+
+        .result-modal.warning .result-title {
+            color: #d97706;
+        }
+
+        .result-modal.error .result-title {
+            color: #dc3545;
+        }
+
+        .result-modal.no-access .result-title {
+            color: #6c757d;
         }
 
         .result-avatar {
             width: 80px;
             height: 80px;
             border-radius: 50%;
-            border: 4px solid white;
-            margin-bottom: 0.5rem;
+            border: 4px solid #e5e7eb;
+            margin-bottom: 0.75rem;
+            object-fit: cover;
         }
 
         .result-name {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 0.25rem;
         }
 
         .result-ticket {
             display: inline-block;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 0.35rem 0.7rem;
+            background: #f3f4f6;
+            color: #4b5563;
+            padding: 0.4rem 0.8rem;
             border-radius: 20px;
-            margin-top: 0.4rem;
             font-size: 0.85rem;
+            font-weight: 500;
         }
 
         .result-code {
-            font-family: monospace;
-            font-size: 1rem;
-            margin-top: 0.6rem;
-            opacity: 0.8;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+            margin-top: 0.75rem;
+            color: #6b7280;
+            background: #f9fafb;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .result-message {
+            font-size: 0.95rem;
+            color: #6b7280;
+            margin-top: 0.75rem;
+            line-height: 1.5;
+        }
+
+        .result-message strong {
+            color: #374151;
         }
 
         .btn-next {
-            margin-top: 1.25rem;
-            padding: 0.75rem 2rem;
-            font-size: 0.95rem;
+            margin-top: 1.5rem;
+            padding: 0.875rem 2.5rem;
+            font-size: 1rem;
             font-weight: 600;
-            background: rgba(0, 0, 0, 0.3);
             color: white;
-            border: 2px solid white;
-            border-radius: 30px;
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .warning .result-title,
-        .warning .result-name {
-            color: #1a1a2e;
+        .btn-next:active {
+            transform: scale(0.95);
         }
 
-        .warning .btn-next {
-            color: #1a1a2e;
-            border-color: #1a1a2e;
+        .result-modal.success .btn-next {
+            background: linear-gradient(135deg, #0acf97 0%, #059669 100%);
+        }
+
+        .result-modal.warning .btn-next {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
+        .result-modal.error .btn-next {
+            background: linear-gradient(135deg, #fa5c7c 0%, #dc3545 100%);
+        }
+
+        .result-modal.no-access .btn-next {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
+
+        /* Timestamp */
+        .result-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: 1rem;
         }
 
         .btn-back {
@@ -688,9 +837,12 @@
         </div>
     </div>
 
-    <!-- Result Overlay -->
-    <div class="result-overlay" id="resultOverlay">
-        <div class="result-content" id="resultContent"></div>
+    <!-- Result Modal -->
+    <div class="result-modal-backdrop" id="resultModalBackdrop">
+        <div class="result-modal" id="resultModal">
+            <div class="status-bar"></div>
+            <div id="resultContent"></div>
+        </div>
     </div>
 
     <script src="/js/vendor.min.js"></script>
@@ -782,11 +934,27 @@
         function backToEvents() { showScreen('eventScreen'); }
         function backToStations() { showScreen('stationScreen'); }
 
-        function simulateScan(type) {
-            const overlay = document.getElementById('resultOverlay');
-            const content = document.getElementById('resultContent');
-            overlay.className = 'result-overlay';
+        function getCurrentTime() {
+            return new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        }
 
+        function showResultModal(type, html) {
+            const backdrop = document.getElementById('resultModalBackdrop');
+            const modal = document.getElementById('resultModal');
+            const content = document.getElementById('resultContent');
+
+            // Reset classes
+            modal.className = 'result-modal ' + type;
+
+            content.innerHTML = html;
+            backdrop.classList.add('show');
+
+            if (navigator.vibrate) {
+                navigator.vibrate(type === 'success' ? [100] : [100, 50, 100]);
+            }
+        }
+
+        function simulateScan(type) {
             const codes = Object.keys(currentEvent.registrations);
             let html = '';
 
@@ -811,50 +979,62 @@
                 codeIndex++;
                 updateStats();
 
-                overlay.classList.add('show', 'success');
                 html = `
-                    <i class="ti ti-circle-check result-icon"></i>
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-circle-check result-icon"></i>
+                    </div>
                     <div class="result-title">Check-in สำเร็จ!</div>
-                    <img src="${reg.avatar}" class="result-avatar">
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
                     <div class="result-ticket">${reg.ticket}</div>
                     <div class="result-code">${code}</div>
-                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
                 `;
+                showResultModal('success', html);
             } else if (type === 'duplicate') {
                 const code = codes[(codeIndex > 0 ? codeIndex - 1 : 0) % codes.length];
                 const reg = currentEvent.registrations[code];
 
-                overlay.classList.add('show', 'warning');
                 html = `
-                    <i class="ti ti-alert-triangle result-icon"></i>
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-alert-triangle result-icon"></i>
+                    </div>
                     <div class="result-title">เช็คอินแล้ว</div>
-                    <img src="${reg.avatar}" class="result-avatar">
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
-                    <p style="margin-top:0.5rem; opacity:0.9;">ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว</p>
-                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                    <p class="result-message">
+                        ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว
+                    </p>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
                 `;
+                showResultModal('warning', html);
             } else if (type === 'no-access') {
                 const code = codes[codeIndex % codes.length];
                 const reg = currentEvent.registrations[code] || { name: 'Test User', ticket: 'Standard', avatar: '/images/users/avatar-1.jpg' };
 
-                overlay.classList.add('show', 'no-access');
                 html = `
-                    <i class="ti ti-lock result-icon"></i>
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-lock result-icon"></i>
+                    </div>
                     <div class="result-title">ไม่มีสิทธิ์เข้างาน</div>
-                    <img src="${reg.avatar}" class="result-avatar">
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
                     <div class="result-ticket">${reg.ticket}</div>
-                    <p style="margin-top:0.75rem; opacity:0.9; font-size:0.9rem;">
-                        <i class="ti ti-x me-1"></i>ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong>
+                    <p class="result-message">
+                        <i class="ti ti-x"></i> ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong>
                     </p>
-                    <button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
                 `;
-            }
-
-            content.innerHTML = html;
-            if (navigator.vibrate) {
-                navigator.vibrate(type === 'success' ? [100] : [100, 50, 100]);
+                showResultModal('no-access', html);
             }
         }
 
@@ -862,36 +1042,81 @@
             const code = document.getElementById('manualCode').value.trim().toUpperCase();
             if (!code) return;
 
-            const overlay = document.getElementById('resultOverlay');
-            const content = document.getElementById('resultContent');
-            overlay.className = 'result-overlay';
-
             const reg = currentEvent.registrations[code];
             let html = '';
+            let type = '';
 
             if (!reg) {
-                overlay.classList.add('show', 'error');
-                html = `<i class="ti ti-circle-x result-icon"></i><div class="result-title">ไม่พบรหัส</div><div class="result-code">${code}</div><button class="btn-next" onclick="closeResult()">ลองใหม่ →</button>`;
+                type = 'error';
+                html = `
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-circle-x result-icon"></i>
+                    </div>
+                    <div class="result-title">ไม่พบรหัส</div>
+                    <div class="result-code">${code}</div>
+                    <p class="result-message">กรุณาตรวจสอบรหัสลงทะเบียนและลองใหม่อีกครั้ง</p>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-refresh"></i> ลองใหม่
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
+                `;
             } else if (!reg.access.includes(currentStation.id)) {
-                overlay.classList.add('show', 'no-access');
-                html = `<i class="ti ti-lock result-icon"></i><div class="result-title">ไม่มีสิทธิ์เข้างาน</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><p style="margin-top:0.5rem;">ไม่ได้ซื้อ Add-on สำหรับ ${currentStation.name}</p><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+                type = 'no-access';
+                html = `
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-lock result-icon"></i>
+                    </div>
+                    <div class="result-title">ไม่มีสิทธิ์เข้างาน</div>
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <p class="result-message">ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong></p>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
+                `;
             } else if (reg.checkedIn[currentStation.id]) {
-                overlay.classList.add('show', 'warning');
-                html = `<i class="ti ti-alert-triangle result-icon"></i><div class="result-title">เช็คอินแล้ว</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+                type = 'warning';
+                html = `
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-alert-triangle result-icon"></i>
+                    </div>
+                    <div class="result-title">เช็คอินแล้ว</div>
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <p class="result-message">ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว</p>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
+                `;
             } else {
                 reg.checkedIn[currentStation.id] = true;
                 checkedInCount++;
                 updateStats();
-                overlay.classList.add('show', 'success');
-                html = `<i class="ti ti-circle-check result-icon"></i><div class="result-title">Check-in สำเร็จ!</div><img src="${reg.avatar}" class="result-avatar"><div class="result-name">${reg.name}</div><div class="result-ticket">${reg.ticket}</div><button class="btn-next" onclick="closeResult()">Scan ต่อ →</button>`;
+                type = 'success';
+                html = `
+                    <div class="result-icon-wrapper">
+                        <i class="ti ti-circle-check result-icon"></i>
+                    </div>
+                    <div class="result-title">Check-in สำเร็จ!</div>
+                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
+                    <div class="result-name">${reg.name}</div>
+                    <div class="result-ticket">${reg.ticket}</div>
+                    <button class="btn-next" onclick="closeResult()">
+                        <i class="ti ti-scan"></i> Scan ต่อ
+                    </button>
+                    <div class="result-time"><i class="ti ti-clock"></i> ${getCurrentTime()}</div>
+                `;
             }
 
-            content.innerHTML = html;
+            showResultModal(type, html);
             document.getElementById('manualCode').value = '';
-            if (navigator.vibrate) navigator.vibrate(100);
         }
 
-        function closeResult() { document.getElementById('resultOverlay').classList.remove('show'); }
+        function closeResult() {
+            document.getElementById('resultModalBackdrop').classList.remove('show');
+        }
 
         function updateStats() {
             document.getElementById('statCheckedIn').textContent = checkedInCount;
