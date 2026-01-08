@@ -133,9 +133,20 @@
                                                 <option value="gala">Gala Dinner</option>
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="roleFilter"
+                                                onchange="filterByRole(this.value)">
+                                                <option value="">All Roles</option>
+                                                <option value="thai-student">Thai Student</option>
+                                                <option value="thai-pharmacy">Thai Pharmacy</option>
+                                                <option value="thai-academician">Thai Academician</option>
+                                                <option value="intl-student">International Student</option>
+                                                <option value="intl-professional">Int'l Professional</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3">
                                             <input type="text" class="form-control"
-                                                placeholder="Search by name, email, or reg code..." id="searchInput">
+                                                placeholder="Search by name, email..." id="searchInput">
                                         </div>
                                     </div>
 
@@ -154,7 +165,8 @@
                                             </thead>
                                             <tbody>
                                                 <!-- 1. Thai Pharmacy - Full Access -->
-                                                <tr data-tickets="conference preconference gala">
+                                                <tr data-tickets="conference preconference gala"
+                                                    data-role="thai-pharmacy">
                                                     <td><code>REG-001</code></td>
                                                     <td>
                                                         <div>
@@ -183,7 +195,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 2. Thai Student - Conference + Pre-Conference -->
-                                                <tr data-tickets="conference preconference">
+                                                <tr data-tickets="conference preconference" data-role="thai-student">
                                                     <td><code>REG-002</code></td>
                                                     <td>
                                                         <div>
@@ -211,7 +223,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 3. Thai Academician - Conference + Gala -->
-                                                <tr data-tickets="conference gala">
+                                                <tr data-tickets="conference gala" data-role="thai-academician">
                                                     <td><code>REG-003</code></td>
                                                     <td>
                                                         <div>
@@ -239,7 +251,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 4. International Student - Conference Only -->
-                                                <tr data-tickets="conference">
+                                                <tr data-tickets="conference" data-role="intl-student">
                                                     <td><code>REG-004</code></td>
                                                     <td>
                                                         <div>
@@ -263,7 +275,8 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 5. International Professional - Full Access -->
-                                                <tr data-tickets="conference preconference gala">
+                                                <tr data-tickets="conference preconference gala"
+                                                    data-role="intl-professional">
                                                     <td><code>REG-005</code></td>
                                                     <td>
                                                         <div>
@@ -292,7 +305,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 6. Thai Pharmacy - Conference Only -->
-                                                <tr data-tickets="conference">
+                                                <tr data-tickets="conference" data-role="thai-pharmacy">
                                                     <td><code>REG-006</code></td>
                                                     <td>
                                                         <div>
@@ -318,7 +331,7 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 7. Thai Student - Gala Only (Added) -->
-                                                <tr data-tickets="conference gala">
+                                                <tr data-tickets="conference gala" data-role="thai-student">
                                                     <td><code>REG-007</code></td>
                                                     <td>
                                                         <div>
@@ -342,7 +355,8 @@
                                                     </td>
                                                 </tr>
                                                 <!-- 8. Thai Academician - Pre-Conference Only -->
-                                                <tr data-tickets="conference preconference">
+                                                <tr data-tickets="conference preconference"
+                                                    data-role="thai-academician">
                                                     <td><code>REG-008</code></td>
                                                     <td>
                                                         <div>
@@ -693,10 +707,47 @@
                                     activeCard.classList.add('border-primary', 'border-2');
                                 }
                             }
+
+                            // Re-apply role filter if set
+                            const roleValue = document.getElementById('roleFilter').value;
+                            if (roleValue) {
+                                filterByRole(roleValue, false);
+                            }
                         }
 
                         function filterByTicketDropdown(value) {
                             filterByTicket(value || 'all');
+                        }
+
+                        // Role Filter Function
+                        function filterByRole(role, resetTicket = true) {
+                            const rows = document.querySelectorAll('#registrationsTable tbody tr');
+
+                            if (!role) {
+                                // Show all (respecting ticket filter)
+                                const ticketValue = document.getElementById('ticketFilter').value;
+                                if (ticketValue) {
+                                    filterByTicket(ticketValue);
+                                } else {
+                                    rows.forEach(row => row.style.display = '');
+                                }
+                                return;
+                            }
+
+                            rows.forEach(row => {
+                                const rowRole = row.dataset.role || '';
+                                const rowTickets = row.dataset.tickets || '';
+                                const ticketValue = document.getElementById('ticketFilter').value;
+
+                                let showByTicket = !ticketValue || rowTickets.includes(ticketValue);
+                                let showByRole = rowRole === role;
+
+                                if (showByTicket && showByRole) {
+                                    row.style.display = '';
+                                } else {
+                                    row.style.display = 'none';
+                                }
+                            });
                         }
 
                         // Add hover effect for stat cards
