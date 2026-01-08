@@ -748,31 +748,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="selection-card" onclick="selectEvent(2, 'Medical Innovation Summit', 'MIS2026')">
-                <div class="selection-card-header">
-                    <h3>Medical Innovation Summit</h3>
-                    <span class="badge badge-info">MIS2026</span>
-                </div>
-                <div class="info">
-                    <span><i class="ti ti-calendar"></i> 20-22 Apr 2026</span>
-                    <span><i class="ti ti-map-pin"></i> QSNCC</span>
-                </div>
-                <div class="stats">
-                    <div class="stat">
-                        <div class="stat-value stat-checked">5</div>
-                        <div class="stat-label">Checked In</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value stat-pending">45</div>
-                        <div class="stat-label">Pending</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-value">50</div>
-                        <div class="stat-label">Total</div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <a href="/checkin-scanner" class="btn-back-link"><i class="ti ti-arrow-left me-1"></i> กลับหน้า Admin</a>
@@ -880,17 +855,6 @@
                     'REG-GHI-003': { name: 'Prof. Wichai Tanaka', role: 'Thai Academician', ticket: 'Conference + Gala Dinner', access: ['conference', 'dinner'], checkedIn: {} },
                     'REG-JKL-004': { name: 'John Smith', role: 'International Student', ticket: 'Conference Only', access: ['conference'], checkedIn: {} },
                     'REG-MNO-005': { name: 'Prof. Sarah Johnson', role: 'International Professional & Academician', ticket: 'Conference + Pre-Conference Workshop + Gala Dinner', access: ['conference', 'preconference', 'dinner'], checkedIn: {} }
-                }
-            },
-            2: {
-                name: 'Medical Innovation Summit',
-                code: 'MIS2026',
-                stations: [
-                    { id: 'conference', name: 'Main Hall', desc: 'ห้องประชุมหลัก', icon: 'ti-building', class: 'main', eligible: 50, checkedIn: 5 }
-                ],
-                registrations: {
-                    'REG-MIS-001': { name: 'Supaporn Chai', role: 'Thai Pharmacy', ticket: 'Standard', access: ['conference'], checkedIn: {} },
-                    'REG-MIS-002': { name: 'Piyapong Suwannee', role: 'Thai Academician', ticket: 'VIP', access: ['conference'], checkedIn: {} }
                 }
             }
         };
