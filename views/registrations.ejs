@@ -95,10 +95,10 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header d-flex justify-content-between align-items-center">
-                                    <h4 class="header-title">All Registrations</h4>
-                                    <div class="d-flex gap-2">
+                                    <h4 class="header-title mb-0">All Registrations</h4>
+                                    <div class="d-flex gap-2 align-items-center">
                                         <!-- Active Filter Badge -->
-                                        <div class="mb-3" id="activeFilterBadge" style="display: none;">
+                                        <div id="activeFilterBadge" style="display: none;">
                                             <span class="badge bg-primary fs-14 px-3 py-2">
                                                 <i class="ti ti-filter me-1"></i>
                                                 Showing: <span id="filterLabel">All</span>
@@ -106,626 +106,606 @@
                                                     style="font-size: 0.6rem;" onclick="filterByTicket('all')"></button>
                                             </span>
                                         </div>
-
-                                        <div class="card-body">
-                                            <!-- Filters -->
-                                            <div class="row mb-3">
-
-                                                <div class="col-md-2">
-                                                    <select class="form-select" id="statusFilter">
-                                                        <option value="">All Status</option>
-                                                        <option value="pending">Pending</option>
-                                                        <option value="confirmed">Confirmed</option>
-                                                        <option value="checked_in">Checked In</option>
-                                                        <option value="cancelled">Cancelled</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <select class="form-select" id="ticketFilter"
-                                                        onchange="filterByTicketDropdown(this.value)">
-                                                        <option value="">All Tickets</option>
-                                                        <option value="conference">Conference</option>
-                                                        <option value="preconference">Pre-Conference Workshop</option>
-                                                        <option value="gala">Gala Dinner</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control"
-                                                        placeholder="Search by name, email, or reg code..."
-                                                        id="searchInput">
-                                                </div>
-                                            </div>
-
-                                            <div class="table-responsive">
-                                                <table class="table table-centered table-nowrap mb-0"
-                                                    id="registrationsTable">
-                                                    <thead class="table-light">
-                                                        <tr>
-                                                            <th>Reg Code</th>
-                                                            <th>Attendee</th>
-                                                            <th>Role</th>
-                                                            <th>Tickets</th>
-                                                            <th>Total</th>
-                                                            <th>Status</th>
-                                                            <th class="text-center">Actions</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <!-- 1. Thai Pharmacy - Full Access -->
-                                                        <tr data-tickets="conference preconference gala">
-                                                            <td><code>REG-001</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">Dr. Somchai Jaidee</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">somchai@hospital.com</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-primary-subtle text-primary">Thai
-                                                                    Pharmacy</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span
-                                                                    class="badge bg-warning-subtle text-warning me-1">Pre-Conference</span>
-                                                                <span class="badge bg-info-subtle text-info">Gala</span>
-                                                            </td>
-                                                            <td><strong>฿8,500</strong></td>
-                                                            <td><span class="badge bg-success">Confirmed</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                                <button class="btn btn-sm btn-success me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#checkinModal"><i
-                                                                        class="ti ti-scan"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 2. Thai Student - Conference + Pre-Conference -->
-                                                        <tr data-tickets="conference preconference">
-                                                            <td><code>REG-002</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">Nattaporn Srisuk</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">nattaporn@gmail.com</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-success-subtle text-success">Thai
-                                                                    Student</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span
-                                                                    class="badge bg-warning-subtle text-warning">Pre-Conference</span>
-                                                            </td>
-                                                            <td><strong>฿3,500</strong></td>
-                                                            <td><span class="badge bg-warning">Pending</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                                <button class="btn btn-sm btn-primary me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#resendModal"><i
-                                                                        class="ti ti-mail"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 3. Thai Academician - Conference + Gala -->
-                                                        <tr data-tickets="conference gala">
-                                                            <td><code>REG-003</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">Prof. Wichai Tanaka</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">wichai@university.ac.th</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-info-subtle text-info">Thai
-                                                                    Academician</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span class="badge bg-info-subtle text-info">Gala</span>
-                                                            </td>
-                                                            <td><strong>฿7,000</strong></td>
-                                                            <td><span class="badge bg-success">Confirmed</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                                <button class="btn btn-sm btn-success me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#checkinModal"><i
-                                                                        class="ti ti-scan"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 4. International Student - Conference Only -->
-                                                        <tr data-tickets="conference">
-                                                            <td><code>REG-004</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">John Smith</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">john.smith@stanford.edu</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span
-                                                                    class="badge bg-warning-subtle text-warning">International
-                                                                    Student</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success">Conference</span>
-                                                            </td>
-                                                            <td><strong>$150</strong></td>
-                                                            <td><span class="badge bg-info">Checked In</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 5. International Professional - Full Access -->
-                                                        <tr data-tickets="conference preconference gala">
-                                                            <td><code>REG-005</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">Prof. Sarah Johnson</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">s.johnson@harvard.edu</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-danger-subtle text-danger">Int'l
-                                                                    Professional</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span
-                                                                    class="badge bg-warning-subtle text-warning me-1">Pre-Conference</span>
-                                                                <span class="badge bg-info-subtle text-info">Gala</span>
-                                                            </td>
-                                                            <td><strong>$450</strong></td>
-                                                            <td><span class="badge bg-success">Confirmed</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                                <button class="btn btn-sm btn-success me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#checkinModal"><i
-                                                                        class="ti ti-scan"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 6. Thai Pharmacy - Conference Only -->
-                                                        <tr data-tickets="conference">
-                                                            <td><code>REG-006</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">ภญ.สุภาพร ใจดี</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">supaporn@pharmacy.com</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-primary-subtle text-primary">Thai
-                                                                    Pharmacy</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success">Conference</span>
-                                                            </td>
-                                                            <td><strong>฿5,500</strong></td>
-                                                            <td><span class="badge bg-success">Confirmed</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                                <button class="btn btn-sm btn-success me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#checkinModal"><i
-                                                                        class="ti ti-scan"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 7. Thai Student - Gala Only (Added) -->
-                                                        <tr data-tickets="conference gala">
-                                                            <td><code>REG-007</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">ปิยะพงษ์ สุวรรณี</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">piyapong@student.com</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-success-subtle text-success">Thai
-                                                                    Student</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span class="badge bg-info-subtle text-info">Gala</span>
-                                                            </td>
-                                                            <td><strong>฿4,000</strong></td>
-                                                            <td><span class="badge bg-secondary">Cancelled</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                        <!-- 8. Thai Academician - Pre-Conference Only -->
-                                                        <tr data-tickets="conference preconference">
-                                                            <td><code>REG-008</code></td>
-                                                            <td>
-                                                                <div>
-                                                                    <h5 class="mb-0 fs-14">ผศ.ดร.มานะ รักเรียน</h5>
-                                                                    <span
-                                                                        class="text-muted fs-12">mana@chula.ac.th</span>
-                                                                </div>
-                                                            </td>
-                                                            <td><span class="badge bg-info-subtle text-info">Thai
-                                                                    Academician</span></td>
-                                                            <td>
-                                                                <span
-                                                                    class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                                <span
-                                                                    class="badge bg-warning-subtle text-warning">Pre-Conference</span>
-                                                            </td>
-                                                            <td><strong>฿6,500</strong></td>
-                                                            <td><span class="badge bg-info">Checked In</span></td>
-                                                            <td class="text-center">
-                                                                <button class="btn btn-sm btn-light me-1"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#viewRegModal"><i
-                                                                        class="ti ti-eye"></i></button>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-
-                                            <!-- Pagination -->
-                                            <div class="d-flex justify-content-between align-items-center mt-3">
-                                                <div class="text-muted">Showing <b>1-3</b> of <b>128</b> registrations
-                                                </div>
-                                                <nav>
-                                                    <ul class="pagination pagination-sm mb-0">
-                                                        <li class="page-item disabled"><a class="page-link"
-                                                                href="#">Previous</a>
-                                                        </li>
-                                                        <li class="page-item active"><a class="page-link" href="#">1</a>
-                                                        </li>
-                                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                        <li class="page-item"><a class="page-link" href="#">Next</a>
-                                                        </li>
-                                                    </ul>
-                                                </nav>
-                                            </div>
+                                        <button class="btn btn-light" data-bs-toggle="modal"
+                                            data-bs-target="#exportModal">
+                                            <i class="ti ti-download me-1"></i> Export
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <!-- Filters -->
+                                    <div class="row mb-3">
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="statusFilter">
+                                                <option value="">All Status</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="confirmed">Confirmed</option>
+                                                <option value="checked_in">Checked In</option>
+                                                <option value="cancelled">Cancelled</option>
+                                            </select>
                                         </div>
+                                        <div class="col-md-2">
+                                            <select class="form-select" id="ticketFilter"
+                                                onchange="filterByTicketDropdown(this.value)">
+                                                <option value="">All Tickets</option>
+                                                <option value="conference">Conference</option>
+                                                <option value="preconference">Pre-Conference Workshop</option>
+                                                <option value="gala">Gala Dinner</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control"
+                                                placeholder="Search by name, email, or reg code..." id="searchInput">
+                                        </div>
+                                    </div>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-centered table-nowrap mb-0" id="registrationsTable">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Reg Code</th>
+                                                    <th>Attendee</th>
+                                                    <th>Role</th>
+                                                    <th>Tickets</th>
+                                                    <th>Total</th>
+                                                    <th>Status</th>
+                                                    <th class="text-center">Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- 1. Thai Pharmacy - Full Access -->
+                                                <tr data-tickets="conference preconference gala">
+                                                    <td><code>REG-001</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">Dr. Somchai Jaidee</h5>
+                                                            <span class="text-muted fs-12">somchai@hospital.com</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-primary-subtle text-primary">Thai
+                                                            Pharmacy</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span
+                                                            class="badge bg-warning-subtle text-warning me-1">Pre-Conference</span>
+                                                        <span class="badge bg-info-subtle text-info">Gala</span>
+                                                    </td>
+                                                    <td><strong>฿8,500</strong></td>
+                                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
+                                                                class="ti ti-scan"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 2. Thai Student - Conference + Pre-Conference -->
+                                                <tr data-tickets="conference preconference">
+                                                    <td><code>REG-002</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">Nattaporn Srisuk</h5>
+                                                            <span class="text-muted fs-12">nattaporn@gmail.com</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-success-subtle text-success">Thai
+                                                            Student</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span
+                                                            class="badge bg-warning-subtle text-warning">Pre-Conference</span>
+                                                    </td>
+                                                    <td><strong>฿3,500</strong></td>
+                                                    <td><span class="badge bg-warning">Pending</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-primary me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#resendModal"><i
+                                                                class="ti ti-mail"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 3. Thai Academician - Conference + Gala -->
+                                                <tr data-tickets="conference gala">
+                                                    <td><code>REG-003</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">Prof. Wichai Tanaka</h5>
+                                                            <span
+                                                                class="text-muted fs-12">wichai@university.ac.th</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-info-subtle text-info">Thai
+                                                            Academician</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span class="badge bg-info-subtle text-info">Gala</span>
+                                                    </td>
+                                                    <td><strong>฿7,000</strong></td>
+                                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
+                                                                class="ti ti-scan"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 4. International Student - Conference Only -->
+                                                <tr data-tickets="conference">
+                                                    <td><code>REG-004</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">John Smith</h5>
+                                                            <span
+                                                                class="text-muted fs-12">john.smith@stanford.edu</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-warning-subtle text-warning">International
+                                                            Student</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success">Conference</span>
+                                                    </td>
+                                                    <td><strong>$150</strong></td>
+                                                    <td><span class="badge bg-info">Checked In</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 5. International Professional - Full Access -->
+                                                <tr data-tickets="conference preconference gala">
+                                                    <td><code>REG-005</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">Prof. Sarah Johnson</h5>
+                                                            <span class="text-muted fs-12">s.johnson@harvard.edu</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-danger-subtle text-danger">Int'l
+                                                            Professional</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span
+                                                            class="badge bg-warning-subtle text-warning me-1">Pre-Conference</span>
+                                                        <span class="badge bg-info-subtle text-info">Gala</span>
+                                                    </td>
+                                                    <td><strong>$450</strong></td>
+                                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
+                                                                class="ti ti-scan"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 6. Thai Pharmacy - Conference Only -->
+                                                <tr data-tickets="conference">
+                                                    <td><code>REG-006</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">ภญ.สุภาพร ใจดี</h5>
+                                                            <span class="text-muted fs-12">supaporn@pharmacy.com</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-primary-subtle text-primary">Thai
+                                                            Pharmacy</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success">Conference</span>
+                                                    </td>
+                                                    <td><strong>฿5,500</strong></td>
+                                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
+                                                                class="ti ti-scan"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 7. Thai Student - Gala Only (Added) -->
+                                                <tr data-tickets="conference gala">
+                                                    <td><code>REG-007</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">ปิยะพงษ์ สุวรรณี</h5>
+                                                            <span class="text-muted fs-12">piyapong@student.com</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-success-subtle text-success">Thai
+                                                            Student</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span class="badge bg-info-subtle text-info">Gala</span>
+                                                    </td>
+                                                    <td><strong>฿4,000</strong></td>
+                                                    <td><span class="badge bg-secondary">Cancelled</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 8. Thai Academician - Pre-Conference Only -->
+                                                <tr data-tickets="conference preconference">
+                                                    <td><code>REG-008</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">ผศ.ดร.มานะ รักเรียน</h5>
+                                                            <span class="text-muted fs-12">mana@chula.ac.th</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-info-subtle text-info">Thai
+                                                            Academician</span></td>
+                                                    <td>
+                                                        <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span
+                                                            class="badge bg-warning-subtle text-warning">Pre-Conference</span>
+                                                    </td>
+                                                    <td><strong>฿6,500</strong></td>
+                                                    <td><span class="badge bg-info">Checked In</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <!-- Pagination -->
+                                    <div class="d-flex justify-content-between align-items-center mt-3">
+                                        <div class="text-muted">Showing <b>1-3</b> of <b>128</b> registrations
+                                        </div>
+                                        <nav>
+                                            <ul class="pagination pagination-sm mb-0">
+                                                <li class="page-item disabled"><a class="page-link"
+                                                        href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item active"><a class="page-link" href="#">1</a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Next</a>
+                                                </li>
+                                            </ul>
+                                        </nav>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- View Registration Modal -->
-                            <div class="modal fade" id="viewRegModal" tabindex="-1">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Registration Details
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <!-- View Registration Modal -->
+                    <div class="modal fade" id="viewRegModal" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-eye me-2"></i>Registration Details
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p><strong>Reg Code:</strong> <code id="viewRegCode"></code></p>
+                                            <p><strong>Name:</strong> <span id="viewRegName"></span></p>
+                                            <p><strong>Email:</strong> <span id="viewRegEmail"></span></p>
+                                            <p><strong>Event:</strong> <span id="viewRegEvent"></span></p>
                                         </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <p><strong>Reg Code:</strong> <code id="viewRegCode"></code></p>
-                                                    <p><strong>Name:</strong> <span id="viewRegName"></span></p>
-                                                    <p><strong>Email:</strong> <span id="viewRegEmail"></span></p>
-                                                    <p><strong>Event:</strong> <span id="viewRegEvent"></span></p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p><strong>Ticket Type:</strong> <span id="viewRegTicket"></span>
-                                                    </p>
-                                                    <p><strong>Add-ons:</strong> <span id="viewRegAddons"></span></p>
-                                                    <p><strong>Total:</strong> <span id="viewRegTotal"
-                                                            class="fw-bold text-success"></span></p>
-                                                    <p><strong>Status:</strong> <span id="viewRegStatus"></span></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="button" class="btn btn-primary" onclick="printBadge()"><i
-                                                    class="ti ti-printer me-1"></i> Print Badge</button>
+                                        <div class="col-md-6">
+                                            <p><strong>Ticket Type:</strong> <span id="viewRegTicket"></span>
+                                            </p>
+                                            <p><strong>Add-ons:</strong> <span id="viewRegAddons"></span></p>
+                                            <p><strong>Total:</strong> <span id="viewRegTotal"
+                                                    class="fw-bold text-success"></span></p>
+                                            <p><strong>Status:</strong> <span id="viewRegStatus"></span></p>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" onclick="printBadge()"><i
+                                            class="ti ti-printer me-1"></i> Print Badge</button>
+                                </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- Check-in Modal -->
-                            <div class="modal fade" id="checkinModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-success text-white">
-                                            <h5 class="modal-title"><i class="ti ti-scan me-2"></i>Check In Attendee
-                                            </h5>
-                                            <button type="button" class="btn-close btn-close-white"
-                                                data-bs-dismiss="modal"></button>
+                    <!-- Check-in Modal -->
+                    <div class="modal fade" id="checkinModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-success text-white">
+                                    <h5 class="modal-title"><i class="ti ti-scan me-2"></i>Check In Attendee
+                                    </h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="ti ti-user-check fs-48 text-success mb-3"></i>
+                                    <p>Check in this attendee?</p>
+                                    <p><strong id="checkinName"></strong></p>
+                                    <p><code id="checkinCode"></code></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-success" onclick="confirmCheckin()"><i
+                                            class="ti ti-check me-1"></i> Confirm Check-in</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cancel Registration Modal -->
+                    <div class="modal fade" id="cancelRegModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header bg-danger text-white">
+                                    <h5 class="modal-title"><i class="ti ti-x me-2"></i>Cancel Registration</h5>
+                                    <button type="button" class="btn-close btn-close-white"
+                                        data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="text-center mb-3">
+                                        <i class="ti ti-alert-triangle fs-48 text-danger"></i>
+                                    </div>
+                                    <p class="text-center">Cancel this registration?</p>
+                                    <p class="text-center"><strong id="cancelRegName"></strong></p>
+                                    <div class="mb-3">
+                                        <label class="form-label">Reason (optional)</label>
+                                        <textarea class="form-control" id="cancelReason" rows="2"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Back</button>
+                                    <button type="button" class="btn btn-danger" onclick="confirmCancel()">Cancel
+                                        Registration</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resend Email Modal -->
+                    <div class="modal fade" id="resendModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-mail me-2"></i>Resend Payment Email
+                                    </h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <i class="ti ti-mail-forward fs-48 text-primary mb-3"></i>
+                                    <p>Resend payment link to:</p>
+                                    <p><strong id="resendEmail"></strong></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="confirmResend()"><i
+                                            class="ti ti-send me-1"></i> Send Email</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Modal -->
+                    <div class="modal fade" id="exportModal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"><i class="ti ti-download me-2"></i>Export Data</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="mb-3">
+                                        <label class="form-label">Format</label>
+                                        <select class="form-select" id="exportFormat">
+                                            <option value="excel">Excel (.xlsx)</option>
+                                            <option value="csv">CSV (.csv)</option>
+                                            <option value="pdf">PDF (.pdf)</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Include</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeAll" checked>
+                                            <label class="form-check-label" for="includeAll">All
+                                                registrations</label>
                                         </div>
-                                        <div class="modal-body text-center">
-                                            <i class="ti ti-user-check fs-48 text-success mb-3"></i>
-                                            <p>Check in this attendee?</p>
-                                            <p><strong id="checkinName"></strong></p>
-                                            <p><code id="checkinCode"></code></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-success" onclick="confirmCheckin()"><i
-                                                    class="ti ti-check me-1"></i> Confirm Check-in</button>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="includeAddons">
+                                            <label class="form-check-label" for="includeAddons">Include add-on
+                                                details</label>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <!-- Cancel Registration Modal -->
-                            <div class="modal fade" id="cancelRegModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header bg-danger text-white">
-                                            <h5 class="modal-title"><i class="ti ti-x me-2"></i>Cancel Registration</h5>
-                                            <button type="button" class="btn-close btn-close-white"
-                                                data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="text-center mb-3">
-                                                <i class="ti ti-alert-triangle fs-48 text-danger"></i>
-                                            </div>
-                                            <p class="text-center">Cancel this registration?</p>
-                                            <p class="text-center"><strong id="cancelRegName"></strong></p>
-                                            <div class="mb-3">
-                                                <label class="form-label">Reason (optional)</label>
-                                                <textarea class="form-control" id="cancelReason" rows="2"></textarea>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Back</button>
-                                            <button type="button" class="btn btn-danger"
-                                                onclick="confirmCancel()">Cancel
-                                                Registration</button>
-                                        </div>
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cancel</button>
+                                    <button type="button" class="btn btn-primary" onclick="exportData()"><i
+                                            class="ti ti-download me-1"></i> Export</button>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- Resend Email Modal -->
-                            <div class="modal fade" id="resendModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"><i class="ti ti-mail me-2"></i>Resend Payment Email
-                                            </h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <i class="ti ti-mail-forward fs-48 text-primary mb-3"></i>
-                                            <p>Resend payment link to:</p>
-                                            <p><strong id="resendEmail"></strong></p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" onclick="confirmResend()"><i
-                                                    class="ti ti-send me-1"></i> Send Email</button>
-                                        </div>
-                                    </div>
-                                </div>
+                    <!-- Success Toast -->
+                    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+                        <div id="successToast" class="toast" role="alert">
+                            <div class="toast-header bg-success text-white">
+                                <i class="ti ti-check me-2"></i>
+                                <strong class="me-auto">Success</strong>
+                                <button type="button" class="btn-close btn-close-white"
+                                    data-bs-dismiss="toast"></button>
                             </div>
+                            <div class="toast-body" id="toastMessage">Operation completed!</div>
+                        </div>
+                    </div>
 
-                            <!-- Export Modal -->
-                            <div class="modal fade" id="exportModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title"><i class="ti ti-download me-2"></i>Export Data</h5>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="mb-3">
-                                                <label class="form-label">Format</label>
-                                                <select class="form-select" id="exportFormat">
-                                                    <option value="excel">Excel (.xlsx)</option>
-                                                    <option value="csv">CSV (.csv)</option>
-                                                    <option value="pdf">PDF (.pdf)</option>
-                                                </select>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">Include</label>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="includeAll"
-                                                        checked>
-                                                    <label class="form-check-label" for="includeAll">All
-                                                        registrations</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="includeAddons">
-                                                    <label class="form-check-label" for="includeAddons">Include add-on
-                                                        details</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cancel</button>
-                                            <button type="button" class="btn btn-primary" onclick="exportData()"><i
-                                                    class="ti ti-download me-1"></i> Export</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                </div><!-- End of mainPageContent -->
 
-                            <!-- Success Toast -->
-                            <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
-                                <div id="successToast" class="toast" role="alert">
-                                    <div class="toast-header bg-success text-white">
-                                        <i class="ti ti-check me-2"></i>
-                                        <strong class="me-auto">Success</strong>
-                                        <button type="button" class="btn-close btn-close-white"
-                                            data-bs-dismiss="toast"></button>
-                                    </div>
-                                    <div class="toast-body" id="toastMessage">Operation completed!</div>
-                                </div>
-                            </div>
+                <%- contentFor('extra_javascript') %>
+                    <script>
+                        // Event Selector Toggle Logic
+                        var eventSelector = document.getElementById('eventContextSelector');
+                        var mainContent = document.getElementById('mainPageContent');
+                        var emptyState = document.getElementById('emptyState');
 
-                        </div><!-- End of mainPageContent -->
+                        function toggleEventContent() {
+                            var selectedEvent = eventSelector.value;
+                            if (selectedEvent) {
+                                mainContent.style.display = 'block';
+                                emptyState.style.display = 'none';
+                            } else {
+                                mainContent.style.display = 'none';
+                                emptyState.style.display = 'block';
+                            }
+                        }
+                        eventSelector.addEventListener('change', toggleEventContent);
+                        toggleEventContent();
 
-                        <%- contentFor('extra_javascript') %>
-                            <script>
-                                // Event Selector Toggle Logic
-                                var eventSelector = document.getElementById('eventContextSelector');
-                                var mainContent = document.getElementById('mainPageContent');
-                                var emptyState = document.getElementById('emptyState');
+                        let currentRegCode = '';
 
-                                function toggleEventContent() {
-                                    var selectedEvent = eventSelector.value;
-                                    if (selectedEvent) {
-                                        mainContent.style.display = 'block';
-                                        emptyState.style.display = 'none';
+                        function viewReg(code, name, email, event, ticket, total, status, addons) {
+                            document.getElementById('viewRegCode').textContent = code;
+                            document.getElementById('viewRegName').textContent = name;
+                            document.getElementById('viewRegEmail').textContent = email;
+                            document.getElementById('viewRegEvent').textContent = event;
+                            document.getElementById('viewRegTicket').textContent = ticket;
+                            document.getElementById('viewRegAddons').textContent = addons;
+                            document.getElementById('viewRegTotal').textContent = total;
+                            const statusClass = status === 'Confirmed' ? 'success' : status === 'Pending' ? 'warning' : status === 'Checked In' ? 'info' : 'danger';
+                            document.getElementById('viewRegStatus').innerHTML = '<span class="badge bg-' + statusClass + '">' + status + '</span>';
+                        }
+
+                        function checkinReg(code, name) {
+                            currentRegCode = code;
+                            document.getElementById('checkinCode').textContent = code;
+                            document.getElementById('checkinName').textContent = name;
+                        }
+
+                        function confirmCheckin() {
+                            bootstrap.Modal.getInstance(document.getElementById('checkinModal')).hide();
+                            showToast('Attendee checked in successfully!');
+                        }
+
+                        function cancelReg(code, name) {
+                            currentRegCode = code;
+                            document.getElementById('cancelRegName').textContent = name + ' (' + code + ')';
+                        }
+
+                        function confirmCancel() {
+                            bootstrap.Modal.getInstance(document.getElementById('cancelRegModal')).hide();
+                            showToast('Registration cancelled.');
+                        }
+
+                        function resendEmail(code, email) {
+                            currentRegCode = code;
+                            document.getElementById('resendEmail').textContent = email;
+                        }
+
+                        function confirmResend() {
+                            bootstrap.Modal.getInstance(document.getElementById('resendModal')).hide();
+                            showToast('Payment email sent!');
+                        }
+
+                        function exportData() {
+                            bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
+                            showToast('Export started. Download will begin shortly.');
+                        }
+
+                        function printBadge() {
+                            bootstrap.Modal.getInstance(document.getElementById('viewRegModal')).hide();
+                            showToast('Badge sent to printer.');
+                        }
+
+                        function showToast(message) {
+                            document.getElementById('toastMessage').textContent = message;
+                            new bootstrap.Toast(document.getElementById('successToast')).show();
+                        }
+
+                        // Ticket Filter Functions
+                        let currentFilter = 'all';
+
+                        function filterByTicket(ticketType) {
+                            currentFilter = ticketType;
+                            const rows = document.querySelectorAll('#registrationsTable tbody tr');
+                            const filterBadge = document.getElementById('activeFilterBadge');
+                            const filterLabel = document.getElementById('filterLabel');
+                            const ticketDropdown = document.getElementById('ticketFilter');
+
+                            // Update stat card styling
+                            document.querySelectorAll('.stat-card').forEach(card => {
+                                card.classList.remove('border-primary', 'border-2');
+                            });
+
+                            if (ticketType === 'all') {
+                                // Show all rows
+                                rows.forEach(row => row.style.display = '');
+                                filterBadge.style.display = 'none';
+                                ticketDropdown.value = '';
+                            } else {
+                                // Filter rows
+                                rows.forEach(row => {
+                                    const tickets = row.dataset.tickets || '';
+                                    if (tickets.includes(ticketType)) {
+                                        row.style.display = '';
                                     } else {
-                                        mainContent.style.display = 'none';
-                                        emptyState.style.display = 'block';
+                                        row.style.display = 'none';
                                     }
-                                }
-                                eventSelector.addEventListener('change', toggleEventContent);
-                                toggleEventContent();
-
-                                let currentRegCode = '';
-
-                                function viewReg(code, name, email, event, ticket, total, status, addons) {
-                                    document.getElementById('viewRegCode').textContent = code;
-                                    document.getElementById('viewRegName').textContent = name;
-                                    document.getElementById('viewRegEmail').textContent = email;
-                                    document.getElementById('viewRegEvent').textContent = event;
-                                    document.getElementById('viewRegTicket').textContent = ticket;
-                                    document.getElementById('viewRegAddons').textContent = addons;
-                                    document.getElementById('viewRegTotal').textContent = total;
-                                    const statusClass = status === 'Confirmed' ? 'success' : status === 'Pending' ? 'warning' : status === 'Checked In' ? 'info' : 'danger';
-                                    document.getElementById('viewRegStatus').innerHTML = '<span class="badge bg-' + statusClass + '">' + status + '</span>';
-                                }
-
-                                function checkinReg(code, name) {
-                                    currentRegCode = code;
-                                    document.getElementById('checkinCode').textContent = code;
-                                    document.getElementById('checkinName').textContent = name;
-                                }
-
-                                function confirmCheckin() {
-                                    bootstrap.Modal.getInstance(document.getElementById('checkinModal')).hide();
-                                    showToast('Attendee checked in successfully!');
-                                }
-
-                                function cancelReg(code, name) {
-                                    currentRegCode = code;
-                                    document.getElementById('cancelRegName').textContent = name + ' (' + code + ')';
-                                }
-
-                                function confirmCancel() {
-                                    bootstrap.Modal.getInstance(document.getElementById('cancelRegModal')).hide();
-                                    showToast('Registration cancelled.');
-                                }
-
-                                function resendEmail(code, email) {
-                                    currentRegCode = code;
-                                    document.getElementById('resendEmail').textContent = email;
-                                }
-
-                                function confirmResend() {
-                                    bootstrap.Modal.getInstance(document.getElementById('resendModal')).hide();
-                                    showToast('Payment email sent!');
-                                }
-
-                                function exportData() {
-                                    bootstrap.Modal.getInstance(document.getElementById('exportModal')).hide();
-                                    showToast('Export started. Download will begin shortly.');
-                                }
-
-                                function printBadge() {
-                                    bootstrap.Modal.getInstance(document.getElementById('viewRegModal')).hide();
-                                    showToast('Badge sent to printer.');
-                                }
-
-                                function showToast(message) {
-                                    document.getElementById('toastMessage').textContent = message;
-                                    new bootstrap.Toast(document.getElementById('successToast')).show();
-                                }
-
-                                // Ticket Filter Functions
-                                let currentFilter = 'all';
-
-                                function filterByTicket(ticketType) {
-                                    currentFilter = ticketType;
-                                    const rows = document.querySelectorAll('#registrationsTable tbody tr');
-                                    const filterBadge = document.getElementById('activeFilterBadge');
-                                    const filterLabel = document.getElementById('filterLabel');
-                                    const ticketDropdown = document.getElementById('ticketFilter');
-
-                                    // Update stat card styling
-                                    document.querySelectorAll('.stat-card').forEach(card => {
-                                        card.classList.remove('border-primary', 'border-2');
-                                    });
-
-                                    if (ticketType === 'all') {
-                                        // Show all rows
-                                        rows.forEach(row => row.style.display = '');
-                                        filterBadge.style.display = 'none';
-                                        ticketDropdown.value = '';
-                                    } else {
-                                        // Filter rows
-                                        rows.forEach(row => {
-                                            const tickets = row.dataset.tickets || '';
-                                            if (tickets.includes(ticketType)) {
-                                                row.style.display = '';
-                                            } else {
-                                                row.style.display = 'none';
-                                            }
-                                        });
-
-                                        // Show filter badge
-                                        const labels = {
-                                            'conference': 'Conference',
-                                            'preconference': 'Pre-Conference Workshop',
-                                            'gala': 'Gala Dinner'
-                                        };
-                                        filterLabel.textContent = labels[ticketType] || ticketType;
-                                        filterBadge.style.display = 'block';
-                                        ticketDropdown.value = ticketType;
-
-                                        // Highlight active stat card
-                                        const activeCard = document.querySelector(`.stat-card[data-filter="${ticketType}"]`);
-                                        if (activeCard) {
-                                            activeCard.classList.add('border-primary', 'border-2');
-                                        }
-                                    }
-                                }
-
-                                function filterByTicketDropdown(value) {
-                                    filterByTicket(value || 'all');
-                                }
-
-                                // Add hover effect for stat cards
-                                document.querySelectorAll('.stat-card').forEach(card => {
-                                    card.addEventListener('mouseenter', function () {
-                                        this.classList.add('shadow');
-                                    });
-                                    card.addEventListener('mouseleave', function () {
-                                        this.classList.remove('shadow');
-                                    });
                                 });
-                            </script>
+
+                                // Show filter badge
+                                const labels = {
+                                    'conference': 'Conference',
+                                    'preconference': 'Pre-Conference Workshop',
+                                    'gala': 'Gala Dinner'
+                                };
+                                filterLabel.textContent = labels[ticketType] || ticketType;
+                                filterBadge.style.display = 'block';
+                                ticketDropdown.value = ticketType;
+
+                                // Highlight active stat card
+                                const activeCard = document.querySelector(`.stat-card[data-filter="${ticketType}"]`);
+                                if (activeCard) {
+                                    activeCard.classList.add('border-primary', 'border-2');
+                                }
+                            }
+                        }
+
+                        function filterByTicketDropdown(value) {
+                            filterByTicket(value || 'all');
+                        }
+
+                        // Add hover effect for stat cards
+                        document.querySelectorAll('.stat-card').forEach(card => {
+                            card.addEventListener('mouseenter', function () {
+                                this.classList.add('shadow');
+                            });
+                            card.addEventListener('mouseleave', function () {
+                                this.classList.remove('shadow');
+                            });
+                        });
+                    </script>
