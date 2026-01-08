@@ -617,6 +617,17 @@
             margin-bottom: 0.25rem;
         }
 
+        .result-role {
+            display: inline-block;
+            background: linear-gradient(135deg, #3e60d5 0%, #6366f1 100%);
+            color: white;
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
         .result-ticket {
             display: inline-block;
             background: #f3f4f6;
@@ -859,25 +870,27 @@
                 name: 'ACCP Annual Conference 2026',
                 code: 'ACCP2026',
                 stations: [
-                    { id: 'main', name: 'Main Conference', desc: 'ห้องประชุมหลัก - ผู้ลงทะเบียนทุกคน', icon: 'ti-building', class: 'main', eligible: 325, checkedIn: 18 },
-                    { id: 'workshop', name: 'Workshop', desc: 'Workshop ส่วนเสริม - เฉพาะผู้ซื้อ Add-on', icon: 'ti-tool', class: 'workshop', eligible: 85, checkedIn: 5 },
+                    { id: 'conference', name: 'Conference', desc: 'ห้องประชุมหลัก - ผู้ลงทะเบียนทุกคน', icon: 'ti-building', class: 'main', eligible: 325, checkedIn: 18 },
+                    { id: 'preconference', name: 'Pre-Conference Workshop', desc: 'Workshop ก่อนงาน - เฉพาะผู้ซื้อ Add-on', icon: 'ti-tool', class: 'workshop', eligible: 85, checkedIn: 5 },
                     { id: 'dinner', name: 'Gala Dinner', desc: 'งานเลี้ยง - เฉพาะผู้ซื้อ Add-on', icon: 'ti-glass-full', class: 'dinner', eligible: 120, checkedIn: 0 }
                 ],
                 registrations: {
-                    'REG-ABC-001': { name: 'Dr. Somchai Jaidee', ticket: 'Full Pass + Workshop + Dinner', avatar: '/images/users/avatar-1.jpg', access: ['main', 'workshop', 'dinner'], checkedIn: {} },
-                    'REG-DEF-002': { name: 'Dr. Nattaporn Srisuk', ticket: 'Full Pass Only', avatar: '/images/users/avatar-2.jpg', access: ['main'], checkedIn: {} },
-                    'REG-GHI-003': { name: 'Dr. Wichai Tanaka', ticket: 'Full Pass + Dinner', avatar: '/images/users/avatar-3.jpg', access: ['main', 'dinner'], checkedIn: {} }
+                    'REG-ABC-001': { name: 'Dr. Somchai Jaidee', role: 'Thai Pharmacy', ticket: 'Conference + Pre-Conference Workshop + Gala Dinner', access: ['conference', 'preconference', 'dinner'], checkedIn: {} },
+                    'REG-DEF-002': { name: 'Nattaporn Srisuk', role: 'Thai Student', ticket: 'Conference + Pre-Conference Workshop', access: ['conference', 'preconference'], checkedIn: {} },
+                    'REG-GHI-003': { name: 'Prof. Wichai Tanaka', role: 'Thai Academician', ticket: 'Conference + Gala Dinner', access: ['conference', 'dinner'], checkedIn: {} },
+                    'REG-JKL-004': { name: 'John Smith', role: 'International Student', ticket: 'Conference Only', access: ['conference'], checkedIn: {} },
+                    'REG-MNO-005': { name: 'Prof. Sarah Johnson', role: 'International Professional & Academician', ticket: 'Conference + Pre-Conference Workshop + Gala Dinner', access: ['conference', 'preconference', 'dinner'], checkedIn: {} }
                 }
             },
             2: {
                 name: 'Medical Innovation Summit',
                 code: 'MIS2026',
                 stations: [
-                    { id: 'main', name: 'Main Hall', desc: 'ห้องประชุมหลัก', icon: 'ti-building', class: 'main', eligible: 50, checkedIn: 5 }
+                    { id: 'conference', name: 'Main Hall', desc: 'ห้องประชุมหลัก', icon: 'ti-building', class: 'main', eligible: 50, checkedIn: 5 }
                 ],
                 registrations: {
-                    'REG-MIS-001': { name: 'Supaporn Chai', ticket: 'Standard', avatar: '/images/users/avatar-4.jpg', access: ['main'], checkedIn: {} },
-                    'REG-MIS-002': { name: 'Piyapong Suwannee', ticket: 'VIP', avatar: '/images/users/avatar-5.jpg', access: ['main'], checkedIn: {} }
+                    'REG-MIS-001': { name: 'Supaporn Chai', role: 'Thai Pharmacy', ticket: 'Standard', access: ['conference'], checkedIn: {} },
+                    'REG-MIS-002': { name: 'Piyapong Suwannee', role: 'Thai Academician', ticket: 'VIP', access: ['conference'], checkedIn: {} }
                 }
             }
         };
@@ -984,8 +997,8 @@
                         <i class="ti ti-circle-check result-icon"></i>
                     </div>
                     <div class="result-title">Check-in สำเร็จ!</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <div class="result-ticket">${reg.ticket}</div>
                     <div class="result-code">${code}</div>
                     <button class="btn-next" onclick="closeResult()">
@@ -1003,8 +1016,8 @@
                         <i class="ti ti-alert-triangle result-icon"></i>
                     </div>
                     <div class="result-title">เช็คอินแล้ว</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <p class="result-message">
                         ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว
                     </p>
@@ -1016,15 +1029,15 @@
                 showResultModal('warning', html);
             } else if (type === 'no-access') {
                 const code = codes[codeIndex % codes.length];
-                const reg = currentEvent.registrations[code] || { name: 'Test User', ticket: 'Standard', avatar: '/images/users/avatar-1.jpg' };
+                const reg = currentEvent.registrations[code] || { name: 'Unknown', role: 'Unknown', ticket: 'Unknown' };
 
                 html = `
                     <div class="result-icon-wrapper">
                         <i class="ti ti-lock result-icon"></i>
                     </div>
                     <div class="result-title">ไม่มีสิทธิ์เข้างาน</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <div class="result-ticket">${reg.ticket}</div>
                     <p class="result-message">
                         <i class="ti ti-x"></i> ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong>
@@ -1067,8 +1080,8 @@
                         <i class="ti ti-lock result-icon"></i>
                     </div>
                     <div class="result-title">ไม่มีสิทธิ์เข้างาน</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <p class="result-message">ไม่ได้ซื้อ Add-on สำหรับ <strong>${currentStation.name}</strong></p>
                     <button class="btn-next" onclick="closeResult()">
                         <i class="ti ti-scan"></i> Scan ต่อ
@@ -1082,8 +1095,8 @@
                         <i class="ti ti-alert-triangle result-icon"></i>
                     </div>
                     <div class="result-title">เช็คอินแล้ว</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <p class="result-message">ลงทะเบียนที่ <strong>${currentStation.name}</strong> แล้ว</p>
                     <button class="btn-next" onclick="closeResult()">
                         <i class="ti ti-scan"></i> Scan ต่อ
@@ -1100,8 +1113,8 @@
                         <i class="ti ti-circle-check result-icon"></i>
                     </div>
                     <div class="result-title">Check-in สำเร็จ!</div>
-                    <img src="${reg.avatar}" class="result-avatar" alt="Avatar">
                     <div class="result-name">${reg.name}</div>
+                    <div class="result-role">${reg.role}</div>
                     <div class="result-ticket">${reg.ticket}</div>
                     <button class="btn-next" onclick="closeResult()">
                         <i class="ti ti-scan"></i> Scan ต่อ

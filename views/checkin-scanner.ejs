@@ -57,13 +57,10 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="card">
-                            <div class="card-header d-flex justify-content-between align-items-center">
+                            <div class="card-header">
                                 <h4 class="header-title mb-0">
                                     <i class="ti ti-scan me-2"></i>Conference Check-in Scanner (Demo Mode)
                                 </h4>
-                                <a href="/checkin-mobile" class="btn btn-primary" target="_blank">
-                                    <i class="ti ti-device-mobile me-1"></i> Open Mobile Scanner
-                                </a>
                             </div>
                             <div class="card-body">
                                 <!-- Event Selection -->
@@ -75,31 +72,29 @@
                                     </select>
                                 </div>
 
-                                <!-- Mock Scanner Area -->
+                                <!-- Scanner Area -->
                                 <div class="mock-scanner text-center mb-4">
-                                    <div class="scanner-animation mb-4">
-                                        <i class="ti ti-scan fs-64 text-white-50"></i>
-                                    </div>
-                                    <p class="text-white-50 mb-4">Simulate QR Code Scan</p>
-
-                                    <!-- Simulation Buttons -->
-                                    <div class="d-flex flex-wrap justify-content-center gap-3 mb-3">
-                                        <button class="btn btn-success btn-lg scan-btn"
-                                            onclick="simulateScan('REG-ABC-001')">
-                                            <i class="ti ti-check me-2"></i>Scan Success
-                                        </button>
-                                        <button class="btn btn-warning btn-lg scan-btn"
-                                            onclick="simulateScan('REG-ABC-001')">
-                                            <i class="ti ti-alert-triangle me-2"></i>Already In
-                                        </button>
-                                        <button class="btn btn-danger btn-lg scan-btn"
-                                            onclick="simulateScan('INVALID-CODE')">
-                                            <i class="ti ti-x me-2"></i>Invalid Code
-                                        </button>
+                                    <!-- Mobile Scanner CTA -->
+                                    <div class="mb-4">
+                                        <div class="scanner-animation mb-3">
+                                            <i class="ti ti-device-mobile-check fs-64 text-white"></i>
+                                        </div>
+                                        <h4 class="text-white mb-2">ใช้มือถือ Scan QR Code</h4>
+                                        <p class="text-white-50 mb-4">เปิดหน้า Mobile Scanner บนมือถือเพื่อสแกน QR Code
+                                            ผู้เข้าร่วมงาน</p>
+                                        <a href="/checkin-mobile" target="_blank"
+                                            class="btn btn-lg btn-primary px-5 py-3" style="font-size: 1.25rem;">
+                                            <i class="ti ti-scan me-2"></i>เปิด Mobile Scanner
+                                        </a>
                                     </div>
 
-                                    <!-- Quick Test Codes -->
-                                    <p class="text-white-50 mb-2 fs-12">Or click sample tickets:</p>
+                                    <hr class="border-light opacity-25 my-4">
+
+                                    <!-- Desktop Quick Test (smaller) -->
+                                    <p class="text-white-50 mb-2 small">
+                                        <i class="ti ti-info-circle me-1"></i>
+                                        ทดสอบบน Desktop: คลิกรหัสตัวอย่างด้านล่าง
+                                    </p>
                                     <div class="d-flex flex-wrap justify-content-center gap-2">
                                         <button class="btn btn-outline-light btn-sm"
                                             onclick="simulateScan('REG-ABC-001')">REG-ABC-001</button>
