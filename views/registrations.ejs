@@ -139,9 +139,8 @@
                                                 <option value="">All Roles</option>
                                                 <option value="thai-student">Thai Student</option>
                                                 <option value="thai-pharmacy">Thai Pharmacy</option>
-                                                <option value="thai-academician">Thai Academician</option>
                                                 <option value="intl-student">International Student</option>
-                                                <option value="intl-professional">Int'l Professional</option>
+                                                <option value="intl-pharmacy">International Pharmacy</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
@@ -222,37 +221,9 @@
                                                                 class="ti ti-mail"></i></button>
                                                     </td>
                                                 </tr>
-                                                <!-- 3. Thai Academician - Conference + Gala -->
-                                                <tr data-tickets="conference gala" data-role="thai-academician">
+                                                <!-- 3. International Student - Conference + Gala -->
+                                                <tr data-tickets="conference gala" data-role="intl-student">
                                                     <td><code>REG-003</code></td>
-                                                    <td>
-                                                        <div>
-                                                            <h5 class="mb-0 fs-14">Prof. Wichai Tanaka</h5>
-                                                            <span
-                                                                class="text-muted fs-12">wichai@university.ac.th</span>
-                                                        </div>
-                                                    </td>
-                                                    <td><span class="badge bg-info-subtle text-info">Thai
-                                                            Academician</span></td>
-                                                    <td>
-                                                        <span
-                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
-                                                        <span class="badge bg-info-subtle text-info">Gala</span>
-                                                    </td>
-                                                    <td><strong>฿7,000</strong></td>
-                                                    <td><span class="badge bg-success">Confirmed</span></td>
-                                                    <td class="text-center">
-                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
-                                                            data-bs-target="#viewRegModal"><i
-                                                                class="ti ti-eye"></i></button>
-                                                        <button class="btn btn-sm btn-success me-1"
-                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
-                                                                class="ti ti-scan"></i></button>
-                                                    </td>
-                                                </tr>
-                                                <!-- 4. International Student - Conference Only -->
-                                                <tr data-tickets="conference" data-role="intl-student">
-                                                    <td><code>REG-004</code></td>
                                                     <td>
                                                         <div>
                                                             <h5 class="mb-0 fs-14">John Smith</h5>
@@ -264,9 +235,36 @@
                                                             Student</span></td>
                                                     <td>
                                                         <span
+                                                            class="badge bg-success-subtle text-success me-1">Conference</span>
+                                                        <span class="badge bg-info-subtle text-info">Gala</span>
+                                                    </td>
+                                                    <td><strong>$200</strong></td>
+                                                    <td><span class="badge bg-success">Confirmed</span></td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
+                                                            data-bs-target="#viewRegModal"><i
+                                                                class="ti ti-eye"></i></button>
+                                                        <button class="btn btn-sm btn-success me-1"
+                                                            data-bs-toggle="modal" data-bs-target="#checkinModal"><i
+                                                                class="ti ti-scan"></i></button>
+                                                    </td>
+                                                </tr>
+                                                <!-- 4. International Pharmacy - Conference Only -->
+                                                <tr data-tickets="conference" data-role="intl-pharmacy">
+                                                    <td><code>REG-004</code></td>
+                                                    <td>
+                                                        <div>
+                                                            <h5 class="mb-0 fs-14">Prof. Sarah Johnson</h5>
+                                                            <span class="text-muted fs-12">s.johnson@harvard.edu</span>
+                                                        </div>
+                                                    </td>
+                                                    <td><span class="badge bg-danger-subtle text-danger">International
+                                                            Pharmacy</span></td>
+                                                    <td>
+                                                        <span
                                                             class="badge bg-success-subtle text-success">Conference</span>
                                                     </td>
-                                                    <td><strong>$150</strong></td>
+                                                    <td><strong>$350</strong></td>
                                                     <td><span class="badge bg-info">Checked In</span></td>
                                                     <td class="text-center">
                                                         <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
@@ -274,18 +272,18 @@
                                                                 class="ti ti-eye"></i></button>
                                                     </td>
                                                 </tr>
-                                                <!-- 5. International Professional - Full Access -->
+                                                <!-- 5. International Pharmacy - Full Access -->
                                                 <tr data-tickets="conference preconference gala"
-                                                    data-role="intl-professional">
+                                                    data-role="intl-pharmacy">
                                                     <td><code>REG-005</code></td>
                                                     <td>
                                                         <div>
-                                                            <h5 class="mb-0 fs-14">Prof. Sarah Johnson</h5>
-                                                            <span class="text-muted fs-12">s.johnson@harvard.edu</span>
+                                                            <h5 class="mb-0 fs-14">Dr. Michael Brown</h5>
+                                                            <span class="text-muted fs-12">m.brown@mit.edu</span>
                                                         </div>
                                                     </td>
-                                                    <td><span class="badge bg-danger-subtle text-danger">Int'l
-                                                            Professional</span></td>
+                                                    <td><span class="badge bg-danger-subtle text-danger">International
+                                                            Pharmacy</span></td>
                                                     <td>
                                                         <span
                                                             class="badge bg-success-subtle text-success me-1">Conference</span>
@@ -293,7 +291,7 @@
                                                             class="badge bg-warning-subtle text-warning me-1">Pre-Conference</span>
                                                         <span class="badge bg-info-subtle text-info">Gala</span>
                                                     </td>
-                                                    <td><strong>$450</strong></td>
+                                                    <td><strong>$550</strong></td>
                                                     <td><span class="badge bg-success">Confirmed</span></td>
                                                     <td class="text-center">
                                                         <button class="btn btn-sm btn-light me-1" data-bs-toggle="modal"
@@ -354,18 +352,17 @@
                                                                 class="ti ti-eye"></i></button>
                                                     </td>
                                                 </tr>
-                                                <!-- 8. Thai Academician - Pre-Conference Only -->
-                                                <tr data-tickets="conference preconference"
-                                                    data-role="thai-academician">
+                                                <!-- 8. Thai Pharmacy - Pre-Conference -->
+                                                <tr data-tickets="conference preconference" data-role="thai-pharmacy">
                                                     <td><code>REG-008</code></td>
                                                     <td>
                                                         <div>
-                                                            <h5 class="mb-0 fs-14">ผศ.ดร.มานะ รักเรียน</h5>
-                                                            <span class="text-muted fs-12">mana@chula.ac.th</span>
+                                                            <h5 class="mb-0 fs-14">ภก.มานะ รักเรียน</h5>
+                                                            <span class="text-muted fs-12">mana@pharmacy.com</span>
                                                         </div>
                                                     </td>
-                                                    <td><span class="badge bg-info-subtle text-info">Thai
-                                                            Academician</span></td>
+                                                    <td><span class="badge bg-primary-subtle text-primary">Thai
+                                                            Pharmacy</span></td>
                                                     <td>
                                                         <span
                                                             class="badge bg-success-subtle text-success me-1">Conference</span>
